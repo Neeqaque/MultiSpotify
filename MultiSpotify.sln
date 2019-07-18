@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiSpotify", "MultiSpotify\MultiSpotify.csproj", "{FBAB793A-2EBE-4425-BAC1-575FEB4BE557}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FBAB793A-2EBE-4425-BAC1-575FEB4BE557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBAB793A-2EBE-4425-BAC1-575FEB4BE557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBAB793A-2EBE-4425-BAC1-575FEB4BE557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBAB793A-2EBE-4425-BAC1-575FEB4BE557}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {189D9056-5A79-4EE7-B181-5A7F7140066F}
+	EndGlobalSection
+EndGlobal
