@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MultiSpotify"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="MainWindow" 
+        MinHeight="300"
+        MinWidth="400"
+        Height="600" 
+        Width="800">
+    <Grid Background="{DynamicResource MainBackground}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Background="{DynamicResource MenuBackground}">
+
+
+        </StackPanel>
     </Grid>
 </Window>

@@ -23,6 +23,8 @@ namespace MultiSpotify
         public MainWindow()
         {
             InitializeComponent();
+
+            ThemeManager.SetTheme(ThemeManager.Themes.Dark);
         }
     }
 }

@@ -13,5 +13,6 @@ namespace MultiSpotify
     /// </summary>
     public partial class App : Application
     {
+        
     }
 }

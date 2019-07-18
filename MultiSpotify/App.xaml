@@ -2,8 +2,15 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:MultiSpotify"
-             StartupUri="MainWindow.xaml">
+             StartupUri="View/MainWindow.xaml">
     <Application.Resources>
-         
+        <!-- Delete on release -->
+        <ResourceDictionary>
+             <ResourceDictionary.MergedDictionaries>
+                 <ResourceDictionary Source="ResourceDictionaries/Styles.xaml" />
+                 <ResourceDictionary Source="ResourceDictionaries/Themes/DarkTheme.xaml" />
+                 <ResourceDictionary Source="ResourceDictionaries/Themes/LightTheme.xaml" />
+             </ResourceDictionary.MergedDictionaries>
+         </ResourceDictionary>
     </Application.Resources>
 </Application>
