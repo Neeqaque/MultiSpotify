@@ -1,0 +1,13 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MultiSpotify.Themes">
+
+    <!-- Brushes -->
+    <SolidColorBrush x:Key="MainBackground">#181818</SolidColorBrush>
+    <SolidColorBrush x:Key="MenuBackground">#121212</SolidColorBrush>
+    <SolidColorBrush x:Key="PlayBackground">#282828</SolidColorBrush>
+    <SolidColorBrush x:Key="MainForeground">#FFFFFF</SolidColorBrush>
+    <!-- /Brushes -->
+    
+</ResourceDictionary>
