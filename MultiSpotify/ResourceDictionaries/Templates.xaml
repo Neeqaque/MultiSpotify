@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MultiSpotify">
+    <ControlTemplate TargetType="ToggleButton" x:Key="MainMenuToggleButtonTemplate">
+        <Border Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                <Label Content="{TemplateBinding Tag}"
+                       Foreground="{TemplateBinding Foreground}"
+                       FontSize="{TemplateBinding FontSize}"
+                       VerticalAlignment="Center"
+                       FontWeight="{TemplateBinding FontWeight}"
+                       FontFamily="{DynamicResource SegoeIconFont}"
+                       Margin="{TemplateBinding Padding}"/>
+                <Label Content="{TemplateBinding Content}"
+                       Foreground="{TemplateBinding Foreground}"
+                       FontSize="{TemplateBinding FontSize}"
+                       VerticalAlignment="Center"
+                       FontWeight="{TemplateBinding FontWeight}"
+                       FontFamily="{TemplateBinding FontFamily}"
+                       Margin="3 0 0 0"/>
+            </StackPanel>
+        </Border>
+    </ControlTemplate>
+</ResourceDictionary>

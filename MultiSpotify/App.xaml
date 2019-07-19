@@ -7,9 +7,11 @@
         <!-- Delete on release -->
         <ResourceDictionary>
              <ResourceDictionary.MergedDictionaries>
-                 <ResourceDictionary Source="ResourceDictionaries/Styles.xaml" />
+                 <ResourceDictionary Source="ResourceDictionaries/Templates.xaml" />
                  <ResourceDictionary Source="ResourceDictionaries/Themes/DarkTheme.xaml" />
                  <ResourceDictionary Source="ResourceDictionaries/Themes/LightTheme.xaml" />
+                 <ResourceDictionary Source="ResourceDictionaries/Icons.xaml" />
+                 <ResourceDictionary Source="ResourceDictionaries/Fonts.xaml" />
              </ResourceDictionary.MergedDictionaries>
          </ResourceDictionary>
     </Application.Resources>

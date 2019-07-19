@@ -8,6 +8,33 @@
     <SolidColorBrush x:Key="MenuBackground">#121212</SolidColorBrush>
     <SolidColorBrush x:Key="PlayBackground">#282828</SolidColorBrush>
     <SolidColorBrush x:Key="MainForeground">#FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="MenuItemIdleForeground">#B3B3B3</SolidColorBrush>
+    <SolidColorBrush x:Key="MenuItemActiveForeground">#FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="PrimaryBrush">#1ED760</SolidColorBrush>
     <!-- /Brushes -->
+
+    <!-- Styles -->
+    <Style TargetType="ToggleButton" x:Key="MainMenuToggleButton">
+        <Setter Property="Template" Value="{DynamicResource MainMenuToggleButtonTemplate}" />
+        <Setter Property="Foreground" Value="{DynamicResource MenuItemIdleForeground}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Padding" Value="3 0 0 0"/>
+        <Setter Property="FontSize" Value="16" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource MenuItemActiveForeground}" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource MenuItemActiveForeground}" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="BorderThickness" Value="3 0 0 0" />
+                <Setter Property="Padding" Value="0" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- /Styles -->
     
 </ResourceDictionary>

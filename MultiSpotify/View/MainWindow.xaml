@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:MultiSpotify"
         mc:Ignorable="d"
         Title="MainWindow" 
-        MinHeight="300"
-        MinWidth="400"
+        MinHeight="450"
+        MinWidth="600"
         Height="600" 
         Width="800">
     <Grid Background="{DynamicResource MainBackground}">
@@ -15,9 +15,21 @@
             <ColumnDefinition Width="150" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Background="{DynamicResource MenuBackground}">
+        <Grid Background="{DynamicResource MenuBackground}">
+            <StackPanel Margin="0 30 0 0">
+                <ToggleButton Tag="{DynamicResource HomeIcon}"
+                              Content="Home"
+                              Style="{DynamicResource MainMenuToggleButton}"/>
+            </StackPanel>
+        </Grid>
+        <Grid Height="80"
+              VerticalAlignment="Bottom"
+              Background="{DynamicResource PlayBackground}"
+              Grid.ColumnSpan="2">
 
+        </Grid>
 
-        </StackPanel>
+        
+
     </Grid>
 </Window>

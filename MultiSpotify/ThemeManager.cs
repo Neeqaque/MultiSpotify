@@ -21,13 +21,17 @@ namespace MultiSpotify
         private const string lightTheme = "ResourceDictionaries/Themes/LightTheme.xaml";
         private const string darkTheme = "ResourceDictionaries/Themes/DarkTheme.xaml";
 
-        private const string styles = "ResourceDictionaries/Styles.xaml";
+        private const string templates = "ResourceDictionaries/Templates.xaml";
+        private const string icons = "ResourceDictionaries/Icons.xaml";
+        private const string fonts = "ResourceDictionaries/Fonts.xaml";
 
         public static void SetTheme(Themes theme)
         {
             Application.Current.Resources.Clear();
 
-            ResourceDictionary dict = Application.LoadComponent(new Uri(styles, UriKind.Relative)) as ResourceDictionary;
+            ResourceDictionary dict = Application.LoadComponent(new Uri(templates, UriKind.Relative)) as ResourceDictionary;
+            dict.MergedDictionaries.Add(Application.LoadComponent(new Uri(icons, UriKind.Relative)) as ResourceDictionary);
+            dict.MergedDictionaries.Add(Application.LoadComponent(new Uri(fonts, UriKind.Relative)) as ResourceDictionary);
             
             switch (theme)
             {
