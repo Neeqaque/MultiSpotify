@@ -24,7 +24,7 @@ namespace MultiSpotify
         {
             InitializeComponent();
 
-            ThemeManager.SetTheme(ThemeManager.Themes.Dark);
+            ThemeManager.SetTheme(ThemeManager.Themes.Light);
         }
     }
 }
