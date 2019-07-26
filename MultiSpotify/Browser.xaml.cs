@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,27 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace MultiSpotify
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Browser.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Browser : Window
     {
-        private TcpListener serv;
-        public MainWindow()
+        public Browser(string url)
         {
             InitializeComponent();
 
-            ThemeManager.SetTheme(ThemeManager.Themes.Dark);
-        }
-
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            SpotifyApiInteraction.Authorize();
+            wb_Browser.Navigate(url);
         }
     }
 }

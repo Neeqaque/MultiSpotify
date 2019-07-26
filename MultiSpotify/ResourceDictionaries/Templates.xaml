@@ -11,16 +11,13 @@
                        Foreground="{TemplateBinding Foreground}"
                        FontSize="{TemplateBinding FontSize}"
                        VerticalAlignment="Center"
-                       FontWeight="{TemplateBinding FontWeight}"
                        FontFamily="{DynamicResource SegoeIconFont}"
                        Margin="{TemplateBinding Padding}"/>
                 <Label Content="{TemplateBinding Content}"
                        Foreground="{TemplateBinding Foreground}"
                        FontSize="{TemplateBinding FontSize}"
                        VerticalAlignment="Center"
-                       FontWeight="{TemplateBinding FontWeight}"
-                       FontFamily="{TemplateBinding FontFamily}"
-                       Margin="3 0 0 0"/>
+                       FontFamily="{TemplateBinding FontFamily}"/>
             </StackPanel>
         </Border>
     </ControlTemplate>

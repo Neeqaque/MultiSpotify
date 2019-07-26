@@ -11,25 +11,33 @@
         Height="600" 
         Width="800">
     <Grid Background="{DynamicResource MainBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Grid Background="{DynamicResource MenuBackground}">
+        <Grid Background="{DynamicResource MenuBackground}" Margin="0,0,0.4,0.4" Grid.RowSpan="2">
             <StackPanel Margin="0 30 0 0">
+                <ToggleButton Tag="{DynamicResource HomeIcon}"
+                              Content="Home"
+                              Style="{DynamicResource MainMenuToggleButton}"/>
                 <ToggleButton Tag="{DynamicResource HomeIcon}"
                               Content="Home"
                               Style="{DynamicResource MainMenuToggleButton}"/>
             </StackPanel>
         </Grid>
-        <Grid Height="80"
-              VerticalAlignment="Bottom"
-              Background="{DynamicResource PlayBackground}"
-              Grid.ColumnSpan="2">
+        <Grid Background="{DynamicResource PlayBackground}"
+              Grid.ColumnSpan="2" 
+              Grid.Row="1">
 
         </Grid>
+        <Grid Grid.Column="1">
+            <Button Click="ButtonBase_OnClick" />
+        </Grid>
 
-        
 
     </Grid>
 </Window>
