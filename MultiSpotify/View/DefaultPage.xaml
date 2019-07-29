@@ -1,0 +1,118 @@
+﻿<Page x:Class="MultiSpotify.View.DefaultPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MultiSpotify.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="800"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      Title="DefaultPage">
+    <Grid Background="{DynamicResource MainBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Background="{DynamicResource MenuBackground}">
+            <ListBox Margin="0 30 0 0"
+                     SelectedIndex="{Binding SelectedIndexUpper}"
+                     Style="{DynamicResource MainMenuListBox}">
+
+                <ListBoxItem Content="Home"
+                             Tag="{DynamicResource HomeIcon}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseUp">
+                            <i:InvokeCommandAction Command="{Binding ChangePageCommand}"
+                                                   CommandParameter="HomePage.xaml"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ListBoxItem>
+
+                <ListBoxItem Content="Browse"
+                             Tag="{DynamicResource BrowseIcon}"
+                             Margin="0 8 0 0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseUp">
+                            <i:InvokeCommandAction Command="{Binding ChangePageCommand}"
+                                                   CommandParameter="BrowsePage.xaml"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ListBoxItem>
+
+                <ListBoxItem Content="Radio"
+                             Tag="{DynamicResource RadioIcon}"
+                             Margin="0 8 0 0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseUp">
+                            <i:InvokeCommandAction Command="{Binding ChangePageCommand}"
+                                                   CommandParameter="RadioPage.xaml"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ListBoxItem>
+                <ListBox.Resources>
+                    <Style TargetType="ListBoxItem" 
+                           BasedOn="{StaticResource MainMenuItem}" />
+                </ListBox.Resources>
+            </ListBox>
+
+            <ScrollViewer Margin="0 160 0 0"
+                          VerticalScrollBarVisibility="Auto"
+                          Background="Transparent"
+                          HorizontalScrollBarVisibility="Auto">
+                <Grid>
+                    <Label Style="{DynamicResource MainMenuLabel}"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content="YOUR LIBRARY"
+                           Margin="16 0 0 0"/>
+                    <ListBox Style="{DynamicResource MainMenuListBox}"
+                             Margin="0 20 0 0"
+                             SelectedIndex="{Binding SelectedIndexLower}">
+                        <ListBoxItem Content="Made for You"
+                                     Margin="0"/>
+                        <ListBoxItem Content="Recently Played"/>
+                        <ListBoxItem Content="Liked Songs"/>
+                        <ListBoxItem Content="Albums"/>
+                        <ListBoxItem Content="Artists"/>
+                        <ListBoxItem Content="Podcasts"/>
+                        <ListBox.Resources>
+                            <Style TargetType="ListBoxItem"
+                                   BasedOn="{StaticResource MainMenuItem}">
+                                <Setter Property="FontSize" Value="15" />
+                                <Setter Property="Margin" Value="0 5 0 0" />
+                            </Style>
+                        </ListBox.Resources>
+                    </ListBox>
+                    <Label Style="{DynamicResource MainMenuLabel}"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           Content="PLAYLISTS"
+                           Margin="16 240 0 0"/>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+        <Grid Background="{DynamicResource PlayBackground}"
+              Grid.ColumnSpan="2" 
+              Grid.Row="2">
+            <Frame />
+        </Grid>
+
+        <Grid Grid.Row="1"
+              Margin="0 5 0 0"
+              Background="{DynamicResource MenuBackground}">
+
+        </Grid>
+
+        <Grid Background="{DynamicResource MainBackground}"
+              Grid.Column="1"
+              Grid.RowSpan="2">
+            <Frame Source="{Binding CurrentPage}"
+                   NavigationUIVisibility="Hidden"/>
+        </Grid>
+    </Grid>
+</Page>

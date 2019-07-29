@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +16,7 @@ namespace MultiSpotify
 {
     public static class SpotifyApiInteraction
     {
+        private const string FILEPATH = "data.dat";
         private static RestClient _apiClient = new RestClient("https://api.spotify.com");
         private static RestClient _accountsClient = new RestClient("https://accounts.spotify.com");
 
@@ -42,7 +46,10 @@ namespace MultiSpotify
                 client.Close();
             });
 
-            Browser bro = new Browser("http://accounts.spotify.com/authorize?client_id=df8b15ff97c042058457f764cafdfc9b&response_type=code&redirect_uri=http://localhost:1448&scope=user-top-read user-read-recently-played user-read-playback-state user-read-currently-playing user-modify-playback-state user-library-modify user-library-read streaming app-remote-control user-read-private user-read-email user-follow-modify user-follow-read playlist-modify-public playlist-read-collaborative playlist-read-private playlist-modify-private");
+            Browser bro = new Browser("http://accounts.spotify.com/authorize?client_id=" + client_id +
+                                                                                  "&response_type=code" +
+                                                                                  "&redirect_uri=" + redirect_uri + 
+                                                                                  "&scope=" + scope);
             bro.Show();
 
             await receiveTask;
@@ -58,11 +65,13 @@ namespace MultiSpotify
             request.AddParameter("client_secret", client_secret);
             request.AddParameter("grant_type", "authorization_code");
             request.AddParameter("code", code);
-            request.AddParameter("redirect_uri", "http://localhost:1448");
+            request.AddParameter("redirect_uri", redirect_uri);
 
             IRestResponse<AccessTokenAuth> resp = _accountsClient.Execute<AccessTokenAuth>(request);
 
             accessToken = resp.Data;
+
+            SaveToken();
         }
 
         public static void RefreshToken()
@@ -76,6 +85,42 @@ namespace MultiSpotify
             IRestResponse<AccessTokenAuth> resp = _accountsClient.Execute<AccessTokenAuth>(request);
 
             accessToken = resp.Data;
+
+            SaveToken();
+        }
+
+        private static void SaveToken()
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            using (FileStream fs = new FileStream(FILEPATH, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            {
+                formatter.Serialize(fs, accessToken);
+            }
+        }
+
+        public static bool LoadToken()
+        {
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+
+                using (FileStream fs = new FileStream(FILEPATH, FileMode.Open))
+                {
+                    accessToken = formatter.Deserialize(fs) as AccessTokenAuth;
+
+                    if (accessToken.receiveTime.AddSeconds(accessToken.expires_in) < DateTime.Now.AddSeconds(-300))
+                    {
+                        RefreshToken();
+                    }
+
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public static CurrentUserInfo GetCurrentUserProfile()
@@ -85,5 +130,14 @@ namespace MultiSpotify
             IRestResponse<CurrentUserInfo> resp = _apiClient.Execute<CurrentUserInfo>(request);
             return resp.Data;
         }
+
+        public static void GetCurrentUserPlaylists()
+        {
+            RestRequest request = new RestRequest("v1/me/playlists", Method.GET);
+            request.AddHeader("Authorization", accessToken.token_type + " " + accessToken.access_token);
+            IRestResponse resp = _apiClient.Execute(request);
+        }
+
+        
     }
 }

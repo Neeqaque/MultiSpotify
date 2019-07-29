@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,28 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MultiSpotify
+namespace MultiSpotify.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for RadioPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class RadioPage : Page
     {
-        public Task AuthorizationTask = new Task((() =>
-        {
-            SpotifyApiInteraction.Authorize();
-        }));
-
-        public MainWindow()
+        public RadioPage()
         {
             InitializeComponent();
-
-            ThemeManager.SetTheme(ThemeManager.Themes.Dark);
-
-            if (!SpotifyApiInteraction.LoadToken())
-            {
-                AuthorizationTask.RunSynchronously();
-            }
         }
     }
 }

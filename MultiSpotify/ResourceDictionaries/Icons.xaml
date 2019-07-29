@@ -3,4 +3,21 @@
                     xmlns:local="clr-namespace:MultiSpotify"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
     <system:String x:Key="HomeIcon">&#xE80F;</system:String>
+    <system:String x:Key="MoreIcon">&#xE712;</system:String>
+    <system:String x:Key="ChevronDownIcon">&#xE70D;</system:String>
+    <system:String x:Key="AddIcon">&#xE710;</system:String>
+    <system:String x:Key="CancelIcon">&#xE711;</system:String>
+    <system:String x:Key="SearchIcon">&#xE721;</system:String>
+    <system:String x:Key="ChevronLeftIcon">&#xE76B;</system:String>
+    <system:String x:Key="ChevronRightIcon">&#xE76C;</system:String>
+    <system:String x:Key="RadioIcon">&#xE93E;</system:String>
+    <system:String x:Key="LibraryIcon">&#xE8F1;</system:String>
+    <system:String x:Key="Volume0Icon">&#xE992;</system:String>
+    <system:String x:Key="Volume1Icon">&#xE993;</system:String>
+    <system:String x:Key="Volume2Icon">&#xE994;</system:String>
+    <system:String x:Key="Volume3Icon">&#xE995;</system:String>
+    <system:String x:Key="HeartIcon">&#xEB51;</system:String>
+    <system:String x:Key="HeartFilledIcon">&#xEB52;</system:String>
+    <system:String x:Key="BrowseIcon">&#xE774;</system:String>
+    <system:String x:Key="ChevronUpIcon">&#xE70E;</system:String>
 </ResourceDictionary>

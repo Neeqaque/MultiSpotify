@@ -24,6 +24,7 @@ namespace MultiSpotify
         private const string templates = "ResourceDictionaries/Templates.xaml";
         private const string icons = "ResourceDictionaries/Icons.xaml";
         private const string fonts = "ResourceDictionaries/Fonts.xaml";
+        private const string styles = "ResourceDictionaries/Styles.xaml";
 
         public static void SetTheme(Themes theme)
         {
@@ -32,6 +33,7 @@ namespace MultiSpotify
             ResourceDictionary dict = Application.LoadComponent(new Uri(templates, UriKind.Relative)) as ResourceDictionary;
             dict.MergedDictionaries.Add(Application.LoadComponent(new Uri(icons, UriKind.Relative)) as ResourceDictionary);
             dict.MergedDictionaries.Add(Application.LoadComponent(new Uri(fonts, UriKind.Relative)) as ResourceDictionary);
+            dict.MergedDictionaries.Add(Application.LoadComponent(new Uri(styles, UriKind.Relative)) as ResourceDictionary);
             
             switch (theme)
             {
