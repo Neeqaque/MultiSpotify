@@ -53,9 +53,16 @@
     <ApplicationIcon>Resources\favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="RestSharp, Version=106.6.10.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.106.6.10\lib\net452\RestSharp.dll</HintPath>
     </Reference>
@@ -83,9 +90,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\DefaultPage_Model.cs" />
     <Compile Include="Source\Command.cs" />
-    <Compile Include="Source\REST\PlaylistsInfo.cs" />
+    <Compile Include="Source\Converters\CentralTooltipConverter.cs" />
+    <Compile Include="Model\ObjectModel.cs" />
+    <Compile Include="Source\SharedData.cs" />
+    <Compile Include="Source\WindowSizing.cs" />
+    <Compile Include="ViewModel\PlaylistPage_ViewModel.cs" />
+    <Compile Include="View\PlaylistPage.xaml.cs">
+      <DependentUpon>PlaylistPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\RadioPage.xaml.cs">
       <DependentUpon>RadioPage.xaml</DependentUpon>
     </Compile>
@@ -142,8 +155,6 @@
     </Compile>
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Source\Icons.cs" />
-    <Compile Include="Source\REST\AccessTokenAuth.cs" />
-    <Compile Include="Source\REST\CurrentUserInfo.cs" />
     <Compile Include="Source\SpotifyApiInteraction.cs" />
     <Compile Include="Source\ThemeManager.cs" />
     <Compile Include="ViewModel\DefaultPage_ViewModel.cs" />
@@ -160,6 +171,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\PlaylistPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\RadioPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -188,6 +203,8 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\Fonts\ProximaNova-Bold.ttf" />
+    <Resource Include="Resources\Fonts\ProximaNova-Extrabld.ttf" />
     <Resource Include="Resources\Fonts\ProximaNova-Semibold.ttf" />
     <Resource Include="Resources\Fonts\ProximaNova-Regular.ttf" />
     <Resource Include="Resources\Fonts\Montserrat-Regular.ttf" />
@@ -211,5 +228,6 @@
   <ItemGroup>
     <Resource Include="Resources\favicon.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

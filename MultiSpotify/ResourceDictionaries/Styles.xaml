@@ -1,6 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:MultiSpotify">
+                    xmlns:local="clr-namespace:MultiSpotify"
+                    xmlns:converters="clr-namespace:MultiSpotify.Source.Converters">
+    <converters:CentralTooltipConverter x:Key="CentralTooltipConverter" />
 
     <Style TargetType="ListBox" x:Key="MainMenuListBox">
         <Setter Property="Background" Value="Transparent" />
@@ -35,6 +37,177 @@
         <Setter Property="Foreground" Value="{DynamicResource MenuItemIdleForeground}" />
         <Setter Property="FontFamily" Value="{DynamicResource MainFont}" />
         <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="DefaultLabel">
+        <Setter Property="Foreground" Value="{DynamicResource DefaultLabelForeground}" />
+        <Setter Property="FontFamily" Value="{DynamicResource MainFont}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
+    <Style TargetType="Button" x:Key="NavigationButtonStyle">
+        <Setter Property="FontFamily" Value="{DynamicResource SegoeIconFont}" />
+        <Setter Property="Foreground" Value="{DynamicResource NavButtonActiveForeground}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template" Value="{DynamicResource DefaultButtonTemplate}"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="{DynamicResource NavButtonIdleForeground}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Foreground" Value="{DynamicResource NavButtonPressedForeground}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="NavigationFrameStyle" TargetType="{x:Type Frame}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Frame}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}" 
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter x:Name="PART_FrameCP"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="NavigationUIVisibility" Value="Visible">
+                <Setter Property="Template" Value="{DynamicResource FrameNavChromeTemplateKey}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Button" x:Key="HeaderButton">
+        <Setter Property="Background" Value="{DynamicResource MenuBackground}" />
+        <Setter Property="Foreground" Value="{DynamicResource DefaultLabelForeground}" />
+        <Setter Property="FontFamily" Value="{DynamicResource SegoeIconFont}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="Width" Value="50" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Template" Value="{DynamicResource DefaultButtonTemplate}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource HeaderButtonHoverBackground}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{DynamicResource HeaderButtonActiveBackground}" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True" />
+                    <Condition Property="Tag" Value="Close" />
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Background" Value="{DynamicResource CloseButtonHoverBackground}" />
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsPressed" Value="True" />
+                    <Condition Property="Tag" Value="Close" />
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter Property="Background" Value="{DynamicResource CloseButtonActiveBackground}" />
+                </MultiTrigger.Setters>
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="ToolTip">
+        <Setter Property="Foreground" Value="{DynamicResource TooltipForeground}" />
+        <Setter Property="Background" Value="{DynamicResource PlayBackground}" />
+        <Setter Property="Placement" Value="Bottom" />
+        <Setter Property="HorizontalOffset">
+            <Setter.Value>
+                <MultiBinding Converter="{StaticResource CentralTooltipConverter}">
+                    <Binding RelativeSource="{RelativeSource Self}"
+                             Path="PlacementTarget.ActualWidth" />
+                    <Binding RelativeSource="{RelativeSource Self}"
+                             Path="ActualWidth" />
+                </MultiBinding>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FontFamily" Value="{DynamicResource MainFont}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="Padding" Value="3" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template" Value="{DynamicResource DefaultToolTipTemplate}" />
+    </Style>
+
+    <Style TargetType="Button" x:Key="RoundPlayButton">
+        <Setter Property="Background" Value="{DynamicResource DarkerPrimaryBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource DefaultLabelForeground}" />
+        <Setter Property="FontFamily" Value="{DynamicResource MainFontBold}" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Width" Value="110" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Template" Value="{DynamicResource RoundGreenButtonTemplate}" />
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1"
+                                ScaleY="1"/>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="RenderTransform">
+                    <Setter.Value>
+                        <ScaleTransform ScaleX="1.05"
+                                        ScaleY="1.05"
+                                        CenterX="55"
+                                        CenterY="16"/>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{DynamicResource DisabledPrimaryBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource DisabledLabelForeground}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Button" x:Key="RoundMoreButton">
+        <Setter Property="FontFamily" Value="{DynamicResource SegoeIconFont}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource MenuItemIdleForeground}" />
+        <Setter Property="Width" Value="32" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template" Value="{DynamicResource RoundMoreButtonTemplate}" />
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource MenuItemActiveForeground}" />
+                <Setter Property="RenderTransform">
+                    <Setter.Value>
+                        <ScaleTransform CenterX="16"
+                                        CenterY="16"
+                                        ScaleY="1.05"
+                                        ScaleX="1.05" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style TargetType="ScrollBar">

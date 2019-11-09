@@ -12,28 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MultiSpotify.ViewModel;
 
 namespace MultiSpotify.View
 {
     /// <summary>
-    /// Interaction logic for DefaultPage.xaml
+    /// Interaction logic for PlaylistPage.xaml
     /// </summary>
-    public partial class DefaultPage : Page
+    public partial class PlaylistPage : Page
     {
-        public DefaultPage()
+        public PlaylistPage()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            ThemeManager.SetTheme(ThemeManager.Themes.Light);
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            ThemeManager.SetTheme(ThemeManager.Themes.Dark);
         }
     }
 }

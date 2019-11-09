@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -9,12 +10,13 @@ using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using MultiSpotify.Source.REST;
+using Newtonsoft.Json;
 using RestSharp;
+using RestSharp.Serialization;
 
 namespace MultiSpotify
 {
-    public static class SpotifyApiInteraction
+    public static partial class SpotifyApiInteraction
     {
         private const string FILEPATH = "data.dat";
         private static RestClient _apiClient = new RestClient("https://api.spotify.com");
@@ -25,11 +27,11 @@ namespace MultiSpotify
         private const string redirect_uri = "http://localhost:1448";
         private const string scope = "user-top-read user-read-playback-state user-library-read " +
                                      "user-read-currently-playing user-modify-playback-state user-follow-read " +
-                                     "playlist-read-private user-read-recently-played ";
+                                     "playlist-read-private user-read-recently-played";
 
         private static AccessTokenAuth accessToken;
 
-        public static async void Authorize()
+        public static async Task<bool> Authorize()
         {
             Socket serverSock = new Socket(SocketType.Stream, ProtocolType.Tcp);
             IPEndPoint ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 1448);
@@ -41,9 +43,11 @@ namespace MultiSpotify
 
             Task receiveTask = Task.Run(() =>
             {
-                Socket client = serverSock.Accept();
-                length = client.Receive(buffer);
-                client.Close();
+                using (Socket client = serverSock.Accept())
+                {
+                    length = client.Receive(buffer);
+                    serverSock.Close();
+                }
             });
 
             Browser bro = new Browser("http://accounts.spotify.com/authorize?client_id=" + client_id +
@@ -67,26 +71,39 @@ namespace MultiSpotify
             request.AddParameter("code", code);
             request.AddParameter("redirect_uri", redirect_uri);
 
-            IRestResponse<AccessTokenAuth> resp = _accountsClient.Execute<AccessTokenAuth>(request);
+            IRestResponse<AccessTokenAuth> resp = await _accountsClient.ExecuteTaskAsync<AccessTokenAuth>(request);
 
-            accessToken = resp.Data;
+            if (resp.Data != null)
+            {
+                accessToken = resp.Data; 
 
-            SaveToken();
+                SaveToken();
+                return true;
+            }
+            
+            return false;
         }
 
-        public static void RefreshToken()
+        public static async Task RefreshToken()
         {
-            RestRequest request = new RestRequest("/api/token", Method.POST);
-            request.AddParameter("grant_type", "refresh_token");
-            request.AddParameter("refresh_token", accessToken.refresh_token);
-            request.AddParameter("client_id", client_id);
-            request.AddParameter("client_secret", client_secret);
+            if (!String.IsNullOrEmpty(accessToken.refresh_token))
+            {
+                RestRequest request = new RestRequest("/api/token", Method.POST);
+                request.AddParameter("grant_type", "refresh_token");
+                request.AddParameter("refresh_token", accessToken.refresh_token);
+                request.AddParameter("client_id", client_id);
+                request.AddParameter("client_secret", client_secret);
 
-            IRestResponse<AccessTokenAuth> resp = _accountsClient.Execute<AccessTokenAuth>(request);
+                IRestResponse<AccessTokenAuth> resp = await _accountsClient.ExecuteTaskAsync<AccessTokenAuth>(request);
 
-            accessToken = resp.Data;
+                accessToken = resp.Data;
 
-            SaveToken();
+                SaveToken();
+            }
+            else
+            {
+                await Authorize();
+            }
         }
 
         private static void SaveToken()
@@ -105,17 +122,13 @@ namespace MultiSpotify
             {
                 BinaryFormatter formatter = new BinaryFormatter();
 
-                using (FileStream fs = new FileStream(FILEPATH, FileMode.Open))
-                {
-                    accessToken = formatter.Deserialize(fs) as AccessTokenAuth;
+                FileStream fs = new FileStream(FILEPATH, FileMode.Open);
+                
+                accessToken = (AccessTokenAuth)formatter.Deserialize(fs);
 
-                    if (accessToken.receiveTime.AddSeconds(accessToken.expires_in) < DateTime.Now.AddSeconds(-300))
-                    {
-                        RefreshToken();
-                    }
+                fs.Close();
 
-                    return true;
-                }
+                return true;
             }
             catch
             {
@@ -123,21 +136,41 @@ namespace MultiSpotify
             }
         }
 
-        public static CurrentUserInfo GetCurrentUserProfile()
+        public static async Task<UserInfo> GetCurrentUserProfile()
         {
+            await CheckToken();
+
             RestRequest request = new RestRequest("v1/me", Method.GET);
             request.AddHeader("Authorization", accessToken.token_type + " " + accessToken.access_token);
-            IRestResponse<CurrentUserInfo> resp = _apiClient.Execute<CurrentUserInfo>(request);
+            IRestResponse<UserInfo> resp = await _apiClient.ExecuteTaskAsync<UserInfo>(request);
             return resp.Data;
         }
-
-        public static void GetCurrentUserPlaylists()
+        
+        public static async Task<PlaylistsInfo> GetCurrentUserPlaylists()
         {
+            await CheckToken();
+
             RestRequest request = new RestRequest("v1/me/playlists", Method.GET);
             request.AddHeader("Authorization", accessToken.token_type + " " + accessToken.access_token);
-            IRestResponse resp = _apiClient.Execute(request);
+            IRestResponse resp = await _apiClient.ExecuteTaskAsync(request);
+            return JsonConvert.DeserializeObject<PlaylistsInfo>(resp.Content);
         }
 
-        
+        private static async Task CheckToken()
+        {
+            if (accessToken == null)
+            {
+                if (!LoadToken())
+                {
+                    await Authorize();
+                }
+            }
+
+            if (accessToken.receiveTime.AddSeconds(accessToken.expires_in) < DateTime.Now.AddSeconds(300))
+            {
+                await RefreshToken();
+            }
+        }
+
     }
 }

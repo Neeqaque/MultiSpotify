@@ -7,10 +7,24 @@
     <SolidColorBrush x:Key="MainBackground">#E7E7E7</SolidColorBrush>
     <SolidColorBrush x:Key="MenuBackground">#EDEDED</SolidColorBrush>
     <SolidColorBrush x:Key="PlayBackground">#D7D7D7</SolidColorBrush>
+    <SolidColorBrush x:Key="HeaderButtonHoverBackground">#ACACAC</SolidColorBrush>
+    <SolidColorBrush x:Key="HeaderButtonActiveBackground">#CFCFCF</SolidColorBrush>
+    <SolidColorBrush x:Key="CloseButtonHoverBackground">#CD1A2B</SolidColorBrush>
+    <SolidColorBrush x:Key="CloseButtonActiveBackground">#FF283E</SolidColorBrush>
+
     <SolidColorBrush x:Key="MainForeground">#000000</SolidColorBrush>
+    <SolidColorBrush x:Key="NavButtonActiveForeground">#000000</SolidColorBrush>
+    <SolidColorBrush x:Key="NavButtonIdleForeground">#DDDDDD</SolidColorBrush>
+    <SolidColorBrush x:Key="NavButtonPressedForeground">#888888</SolidColorBrush>
     <SolidColorBrush x:Key="MenuItemIdleForeground">#4C4C4C</SolidColorBrush>
     <SolidColorBrush x:Key="MenuItemActiveForeground">#000000</SolidColorBrush>
+    <SolidColorBrush x:Key="TooltipForeground">#525252</SolidColorBrush>
+    <SolidColorBrush x:Key="DefaultLabelForeground">#000000</SolidColorBrush>
+    <SolidColorBrush x:Key="DisabledLabelForeground">#898989</SolidColorBrush>
+
     <SolidColorBrush x:Key="PrimaryBrush">#1ED760</SolidColorBrush>
+    <SolidColorBrush x:Key="DarkerPrimaryBrush">#1DB954</SolidColorBrush>
+    <SolidColorBrush x:Key="DisabledPrimaryBrush">#1C5B31</SolidColorBrush>
     <SolidColorBrush x:Key="ScrollbarIdleBrush">#ACACAC</SolidColorBrush>
     <SolidColorBrush x:Key="ScrollbarActiveBrush">#4C4C4C</SolidColorBrush>
     <!-- /Brushes -->

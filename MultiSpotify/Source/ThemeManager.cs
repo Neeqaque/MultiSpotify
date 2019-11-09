@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using MultiSpotify.ViewModel;
 
 namespace MultiSpotify
 {
@@ -21,33 +22,33 @@ namespace MultiSpotify
         private const string lightTheme = "ResourceDictionaries/Themes/LightTheme.xaml";
         private const string darkTheme = "ResourceDictionaries/Themes/DarkTheme.xaml";
 
-        private const string templates = "ResourceDictionaries/Templates.xaml";
-        private const string icons = "ResourceDictionaries/Icons.xaml";
-        private const string fonts = "ResourceDictionaries/Fonts.xaml";
-        private const string styles = "ResourceDictionaries/Styles.xaml";
-
         public static void SetTheme(Themes theme)
         {
-            Application.Current.Resources.Clear();
+            for (int i = 0; i < Application.Current.Resources.MergedDictionaries.Count; i++)
+            {
+                if (Application.Current.Resources.MergedDictionaries[i].Source == new Uri(lightTheme, UriKind.Relative) ||
+                    Application.Current.Resources.MergedDictionaries[i].Source == new Uri(darkTheme, UriKind.Relative))
+                {
+                    Application.Current.Resources.MergedDictionaries.Remove(Application.Current.Resources.MergedDictionaries[i]);
+                    i--;
+                }
+            }
 
-            ResourceDictionary dict = Application.LoadComponent(new Uri(templates, UriKind.Relative)) as ResourceDictionary;
-            dict.MergedDictionaries.Add(Application.LoadComponent(new Uri(icons, UriKind.Relative)) as ResourceDictionary);
-            dict.MergedDictionaries.Add(Application.LoadComponent(new Uri(fonts, UriKind.Relative)) as ResourceDictionary);
-            dict.MergedDictionaries.Add(Application.LoadComponent(new Uri(styles, UriKind.Relative)) as ResourceDictionary);
-            
+            ResourceDictionary chosenTheme = new ResourceDictionary();
+
             switch (theme)
             {
                 case Themes.Dark:
-                    dict.MergedDictionaries.Add(Application.LoadComponent(new Uri(darkTheme, UriKind.Relative)) as ResourceDictionary);
+                    chosenTheme.Source = new Uri(darkTheme, UriKind.Relative);
                     CurrentTheme = Themes.Dark;
                     break;
                 case Themes.Light:
-                    dict.MergedDictionaries.Add(Application.LoadComponent(new Uri(lightTheme, UriKind.Relative)) as ResourceDictionary);
+                    chosenTheme.Source = new Uri(lightTheme, UriKind.Relative);
                     CurrentTheme = Themes.Light;
                     break;
             }
 
-            Application.Current.Resources.MergedDictionaries.Add(dict);
+            Application.Current.Resources.MergedDictionaries.Add(chosenTheme);
         }
     }
 }

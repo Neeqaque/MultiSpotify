@@ -2,6 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:MultiSpotify">
     <FontFamily x:Key="SegoeIconFont">pack://application:,,,/Resources/Fonts/#Segoe MDL2 Assets</FontFamily>
-    <FontFamily x:Key="MainFont">pack://application:,,,/Resources/Fonts/#Proxima Nova Rg</FontFamily>
-    <FontFamily x:Key="MainFontSemibold">pack://application:,,,/Resources/Fonts/#Proxima Nova Lt</FontFamily>
+    <FontFamily x:Key="MainFont">pack://application:,,,/Resources/Fonts/#Proxima Nova Regular</FontFamily>
+    <FontFamily x:Key="MainFontSemibold">pack://application:,,,/Resources/Fonts/#Proxima Nova Semibold</FontFamily>
+    <FontFamily x:Key="MainFontBold">pack://application:,,,/Resources/Fonts/#Proxima Nova Bold</FontFamily>
+    <FontFamily x:Key="MainFontExtrabold">pack://application:,,,/Resources/Fonts/#Proxima Nova Extrabold</FontFamily>
 </ResourceDictionary>

@@ -8,7 +8,8 @@
       d:DesignHeight="700" d:DesignWidth="800"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       Title="DefaultPage">
-    <Grid Background="{DynamicResource MainBackground}">
+    <Grid Background="{DynamicResource MainBackground}"
+          DataContext="{DynamicResource DefaultPageVM}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="45"/>
@@ -20,11 +21,12 @@
         </Grid.ColumnDefinitions>
         <Grid Background="{DynamicResource MenuBackground}">
             <ListBox Margin="0 30 0 0"
-                     SelectedIndex="{Binding SelectedIndexUpper}"
+                     SelectedIndex="{Binding SelectedIndex_Home}"
                      Style="{DynamicResource MainMenuListBox}">
 
                 <ListBoxItem Content="Home"
-                             Tag="{DynamicResource HomeIcon}">
+                             Tag="{DynamicResource HomeIcon}"
+                             Height="38">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseUp">
                             <i:InvokeCommandAction Command="{Binding ChangePageCommand}"
@@ -35,7 +37,7 @@
 
                 <ListBoxItem Content="Browse"
                              Tag="{DynamicResource BrowseIcon}"
-                             Margin="0 8 0 0">
+                             Height="38">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseUp">
                             <i:InvokeCommandAction Command="{Binding ChangePageCommand}"
@@ -46,7 +48,7 @@
 
                 <ListBoxItem Content="Radio"
                              Tag="{DynamicResource RadioIcon}"
-                             Margin="0 8 0 0">
+                             Height="38">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseUp">
                             <i:InvokeCommandAction Command="{Binding ChangePageCommand}"
@@ -64,15 +66,14 @@
                           VerticalScrollBarVisibility="Auto"
                           Background="Transparent"
                           HorizontalScrollBarVisibility="Auto">
-                <Grid>
+                <StackPanel>
                     <Label Style="{DynamicResource MainMenuLabel}"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                            Content="YOUR LIBRARY"
                            Margin="16 0 0 0"/>
                     <ListBox Style="{DynamicResource MainMenuListBox}"
-                             Margin="0 20 0 0"
-                             SelectedIndex="{Binding SelectedIndexLower}">
+                             SelectedIndex="{Binding SelectedIndex_Library}">
                         <ListBoxItem Content="Made for You"
                                      Margin="0"/>
                         <ListBoxItem Content="Recently Played"/>
@@ -84,7 +85,6 @@
                             <Style TargetType="ListBoxItem"
                                    BasedOn="{StaticResource MainMenuItem}">
                                 <Setter Property="FontSize" Value="15" />
-                                <Setter Property="Margin" Value="0 5 0 0" />
                             </Style>
                         </ListBox.Resources>
                     </ListBox>
@@ -92,8 +92,19 @@
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                            Content="PLAYLISTS"
-                           Margin="16 240 0 0"/>
-                </Grid>
+                           Margin="16 20 0 0"/>
+                    <ListBox Style="{DynamicResource MainMenuListBox}"
+                             ItemsSource="{Binding Playlists}"
+                             DisplayMemberPath="name"
+                             SelectedIndex="{Binding SelectedIndex_Playlists}">
+                        <ListBox.Resources>
+                            <Style TargetType="ListBoxItem" BasedOn="{StaticResource MainMenuItem}">
+                                <Setter Property="FontSize" Value="15" />
+                                <Setter Property="Template" Value="{DynamicResource PlaylistMenuItemTemplate}" />
+                            </Style>
+                        </ListBox.Resources>
+                    </ListBox>
+                </StackPanel>
             </ScrollViewer>
         </Grid>
         <Grid Background="{DynamicResource PlayBackground}"
@@ -112,7 +123,10 @@
               Grid.Column="1"
               Grid.RowSpan="2">
             <Frame Source="{Binding CurrentPage}"
-                   NavigationUIVisibility="Hidden"/>
+                   NavigationUIVisibility="Visible" 
+                   Style="{DynamicResource NavigationFrameStyle}"/>
+            <Button Content="Button" HorizontalAlignment="Left" Margin="180,124,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+            <Button Content="Button" HorizontalAlignment="Left" Margin="296,133,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
         </Grid>
     </Grid>
 </Page>

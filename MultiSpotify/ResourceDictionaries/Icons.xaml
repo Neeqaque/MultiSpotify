@@ -20,4 +20,7 @@
     <system:String x:Key="HeartFilledIcon">&#xEB52;</system:String>
     <system:String x:Key="BrowseIcon">&#xE774;</system:String>
     <system:String x:Key="ChevronUpIcon">&#xE70E;</system:String>
+    <system:String x:Key="MinimizeIcon">&#xE738;</system:String>
+    <system:String x:Key="MaximizeIcon">&#xE922;</system:String>
+    <system:String x:Key="RestoreIcon">&#xE923;</system:String>
 </ResourceDictionary>
