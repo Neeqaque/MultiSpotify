@@ -13,16 +13,36 @@ using MultiSpotify.Source;
 
 namespace MultiSpotify.ViewModel
 {
-    class PlaylistPage_ViewModel:INotifyPropertyChanged
+    public class PlaylistPage_ViewModel: INotifyPropertyChanged
     {
         private SpotifyApiInteraction.PlaylistInfo _playlist;
         public SpotifyApiInteraction.PlaylistInfo Playlist
         {
-            get => (App.Current.Resources["Shared"] as SharedData).SharedPlaylist ?? new SpotifyApiInteraction.PlaylistInfo();
+            get => _playlist;
             set
             {
-                (App.Current.Resources["Shared"] as SharedData).SharedPlaylist = value;
+                _playlist = value;
                 OnPropertyChanged(nameof(Playlist));
+            }
+        }
+
+        public string PlaylistName
+        {
+            get => Playlist.name;
+            set
+            {
+                Playlist.name = value;
+                OnPropertyChanged(nameof(PlaylistName));
+            }
+        }
+
+        public string PlaylistOwner
+        {
+            get => Playlist.owner.display_name;
+            set
+            {
+                Playlist.owner.display_name = value;
+                OnPropertyChanged(nameof(PlaylistOwner));
             }
         }
 

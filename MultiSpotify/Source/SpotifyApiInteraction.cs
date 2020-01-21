@@ -71,7 +71,7 @@ namespace MultiSpotify
             request.AddParameter("code", code);
             request.AddParameter("redirect_uri", redirect_uri);
 
-            IRestResponse<AccessTokenAuth> resp = await _accountsClient.ExecuteTaskAsync<AccessTokenAuth>(request);
+            IRestResponse<AccessTokenAuth> resp = await _accountsClient.ExecuteAsync<AccessTokenAuth>(request);
 
             if (resp.Data != null)
             {
@@ -94,7 +94,7 @@ namespace MultiSpotify
                 request.AddParameter("client_id", client_id);
                 request.AddParameter("client_secret", client_secret);
 
-                IRestResponse<AccessTokenAuth> resp = await _accountsClient.ExecuteTaskAsync<AccessTokenAuth>(request);
+                IRestResponse<AccessTokenAuth> resp = await _accountsClient.ExecuteAsync<AccessTokenAuth>(request);
 
                 accessToken = resp.Data;
 
@@ -142,7 +142,7 @@ namespace MultiSpotify
 
             RestRequest request = new RestRequest("v1/me", Method.GET);
             request.AddHeader("Authorization", accessToken.token_type + " " + accessToken.access_token);
-            IRestResponse<UserInfo> resp = await _apiClient.ExecuteTaskAsync<UserInfo>(request);
+            IRestResponse<UserInfo> resp = await _apiClient.ExecuteAsync<UserInfo>(request);
             return resp.Data;
         }
         
@@ -152,7 +152,7 @@ namespace MultiSpotify
 
             RestRequest request = new RestRequest("v1/me/playlists", Method.GET);
             request.AddHeader("Authorization", accessToken.token_type + " " + accessToken.access_token);
-            IRestResponse resp = await _apiClient.ExecuteTaskAsync(request);
+            IRestResponse resp = await _apiClient.ExecuteAsync(request);
             return JsonConvert.DeserializeObject<PlaylistsInfo>(resp.Content);
         }
 

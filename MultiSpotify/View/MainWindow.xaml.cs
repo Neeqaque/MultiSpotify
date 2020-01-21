@@ -55,8 +55,10 @@ namespace MultiSpotify
 
         private void Close_Button_Click(object sender, RoutedEventArgs e)
         {
-            WindowState = WindowState.Minimized;
-            Hide();
+            //WindowState = WindowState.Minimized;
+            //Hide();
+
+            Close();
         }
 
         private void Maximize_Button_Click(object sender, RoutedEventArgs e)

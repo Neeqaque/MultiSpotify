@@ -1,23 +1,16 @@
-﻿<Application x:Class="MultiSpotify.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:MultiSpotify"
-             xmlns:viewModel="clr-namespace:MultiSpotify.ViewModel"
-             xmlns:source="clr-namespace:MultiSpotify.Source"
-             StartupUri="View/MainWindow.xaml">
-    <Application.Resources>
-        <ResourceDictionary>
+<Application x:Class="MultiSpotify.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:MultiSpotify" xmlns:viewModel="clr-namespace:MultiSpotify.ViewModel" xmlns:source="clr-namespace:MultiSpotify.Source" StartupUri="View/MainWindow.xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" d1p1:Ignorable="d" xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
+  <Application.Resources>
+    <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ResourceDictionaries/Themes/DarkTheme.xaml" /> <!-- Delete on release -->
+                <ResourceDictionary Source="ResourceDictionaries/Themes/DarkTheme.xaml" />
+                <!-- Delete on release -->
                 <ResourceDictionary Source="ResourceDictionaries/Icons.xaml" />
                 <ResourceDictionary Source="ResourceDictionaries/Fonts.xaml" />
                 <ResourceDictionary Source="ResourceDictionaries/Styles.xaml" />
                 <ResourceDictionary Source="ResourceDictionaries/Templates.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <viewModel:DefaultPage_ViewModel x:Key="DefaultPageVM" />
-            <viewModel:PlaylistPage_ViewModel x:Key="PlaylistPageVM" />
+            <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:MultiSpotify.ViewModel" />
             <source:SharedData x:Key="Shared" />
-        </ResourceDictionary>
-        
-    </Application.Resources>
+    </ResourceDictionary>
+  </Application.Resources>
 </Application>

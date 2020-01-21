@@ -121,16 +121,6 @@ namespace MultiSpotify
                 }
             }
 
-            public void UpdateEverything()
-            {
-                OnPropertyChanged(nameof(items));
-                OnPropertyChanged(nameof(total));
-                OnPropertyChanged(nameof(previous));
-                OnPropertyChanged(nameof(offset));
-                OnPropertyChanged(nameof(next));
-                OnPropertyChanged(nameof(limit));
-                OnPropertyChanged(nameof(href));
-            }
 
             #region Interface realization
 

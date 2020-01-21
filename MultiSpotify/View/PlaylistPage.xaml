@@ -9,7 +9,7 @@
       Title="PlaylistPage">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid Height="250"
-              DataContext="{DynamicResource PlaylistPageVM}"
+              DataContext="{Binding PlaylistPage, Source={StaticResource Locator}}"
               VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
@@ -25,7 +25,7 @@
                 <Label Content="PLAYLIST"
                        FontSize="13"
                        Margin="2 70 0 0"/>
-                <Label Content="{Binding Playlist.name}"
+                <Label Content="{Binding PlaylistName}"
                        FontFamily="{DynamicResource MainFontExtrabold}"
                        FontSize="50"
                        ToolTip="Edit title"/>
@@ -33,7 +33,7 @@
                             Margin="2 8 0 0">
                     <Label Content="Created by "
                            Foreground="{DynamicResource MenuItemIdleForeground}"/>
-                    <Label Content="{Binding Playlist.owner.display_name}"
+                    <Label Content="{Binding PlaylistOwner}"
                            FontWeight="Bold"/>
                     <Label Content=" • 76 songs, 2 hr 50 min"
                            Foreground="{DynamicResource MenuItemIdleForeground}"/>
