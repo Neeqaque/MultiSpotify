@@ -29,11 +29,11 @@ namespace MultiSpotify.UserControls
         {
             if (e.Delta > 0)
             {
-                MenuScrollViewer.LineUp();
+                MenuScrollViewer.ScrollToVerticalOffset(MenuScrollViewer.VerticalOffset - 16);
             }
             else
             {
-                MenuScrollViewer.LineDown();
+                MenuScrollViewer.ScrollToVerticalOffset(MenuScrollViewer.VerticalOffset + 16);
             }
         }
     }

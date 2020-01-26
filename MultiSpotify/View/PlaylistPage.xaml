@@ -18,7 +18,11 @@
             <Image Width="200"
                    Source="{Binding Playlist.images[0].Image}"
                    SnapsToDevicePixels="True"
-                   Height="200"/>
+                   Height="200">
+                <Image.Effect>
+                    <DropShadowEffect BlurRadius="5" />
+                </Image.Effect>
+            </Image>
 
             <Button Style="{DynamicResource EditImageButton}" />
 
