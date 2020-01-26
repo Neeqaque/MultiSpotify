@@ -10,6 +10,7 @@ using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using MultiSpotify.Annotations;
 using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Serialization;
@@ -146,14 +147,25 @@ namespace MultiSpotify
             return resp.Data;
         }
         
-        public static async Task<PlaylistsInfo> GetCurrentUserPlaylists()
+        public static async Task<IEnumerable<PlaylistInfo>> GetCurrentUserPlaylists()
         {
-            await CheckToken();
+            string href = "v1/me/playlists";
+            IEnumerable<PlaylistInfo> retCollection = new List<PlaylistInfo>();
+            do
+            {
+                await CheckToken();
 
-            RestRequest request = new RestRequest("v1/me/playlists", Method.GET);
-            request.AddHeader("Authorization", accessToken.token_type + " " + accessToken.access_token);
-            IRestResponse resp = await _apiClient.ExecuteAsync(request);
-            return JsonConvert.DeserializeObject<PlaylistsInfo>(resp.Content);
+                RestRequest request = new RestRequest(href, Method.GET);
+                request.AddHeader("Authorization", accessToken.token_type + " " + accessToken.access_token);
+                IRestResponse resp = await _apiClient.ExecuteAsync(request);
+                PlaylistInfoPaging retData = JsonConvert.DeserializeObject<PlaylistInfoPaging>(resp.Content);
+                retCollection = retCollection.Concat(retData.items);
+                href = retData.next;
+            } while (href != null);
+
+            return retCollection;
+
+            
         }
 
         private static async Task CheckToken()
@@ -170,6 +182,26 @@ namespace MultiSpotify
             {
                 await RefreshToken();
             }
+        }
+
+        public static async Task<IEnumerable<PlaylistTrackInfo>> LoadTracks(string href)
+        {
+            IEnumerable<PlaylistTrackInfo> retCollection = new List<PlaylistTrackInfo>();
+
+            do
+            {
+                await CheckToken();
+
+                RestRequest request = new RestRequest(href, Method.GET);
+                request.AddHeader("Authorization", accessToken.token_type + " " + accessToken.access_token);
+                IRestResponse resp = await _apiClient.ExecuteGetAsync(request);
+                TracksInfoPaging retData = JsonConvert.DeserializeObject<TracksInfoPaging>(resp.Content);
+
+                retCollection = retCollection.Concat(retData.items);
+                href = retData.next;
+            } while (href != null);
+
+            return retCollection;
         }
 
     }

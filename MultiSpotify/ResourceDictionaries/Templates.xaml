@@ -199,11 +199,13 @@
 
                 <Button Command="NavigationCommands.BrowseBack"
                         ToolTip="Go back"
+                        Panel.ZIndex="3"
                         Style="{DynamicResource NavigationButtonStyle}" 
                         Content="{DynamicResource ChevronLeftIcon}"/>
 
                 <Button Command="NavigationCommands.BrowseForward"
                         Margin="10 0 0 0"
+                        Panel.ZIndex="3"
                         ToolTip="Go forward"
                         Style="{DynamicResource NavigationButtonStyle}"
                         Content="{DynamicResource ChevronRightIcon}"/>

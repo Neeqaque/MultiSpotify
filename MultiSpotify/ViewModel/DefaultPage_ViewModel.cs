@@ -33,14 +33,14 @@ namespace MultiSpotify.ViewModel
         }
         public DefaultPage_ViewModel()
         {
-            LoadInfo();
             MenuVM = new MenuViewModel();
+            LoadInfo();
         }
 
         private async void LoadInfo()
         {
             _userInfo = await SpotifyApiInteraction.GetCurrentUserProfile();
-            MenuVM.Playlists = (await SpotifyApiInteraction.GetCurrentUserPlaylists()).items;
+            MenuVM.Playlists = new ObservableCollection<SpotifyApiInteraction.PlaylistInfo>(await SpotifyApiInteraction.GetCurrentUserPlaylists());
         }
 
         

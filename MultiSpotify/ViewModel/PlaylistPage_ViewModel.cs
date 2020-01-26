@@ -16,12 +16,35 @@ namespace MultiSpotify.ViewModel
     public class PlaylistPage_ViewModel: INotifyPropertyChanged
     {
         private SpotifyApiInteraction.PlaylistInfo _playlist;
+        private List<SpotifyApiInteraction.PlaylistTrackInfo> _tracks;
+        private string _tracksDuration;
+
+        public string TracksDuration
+        {
+            get => _tracksDuration;
+            set
+            {
+                _tracksDuration = value;
+                OnPropertyChanged(nameof(TracksDuration));
+            }
+        }
+
+        public List<SpotifyApiInteraction.PlaylistTrackInfo> Tracks
+        {
+            get => _tracks;
+            set
+            {
+                _tracks = value;
+                OnPropertyChanged(nameof(Tracks));
+            }
+        }
         public SpotifyApiInteraction.PlaylistInfo Playlist
         {
             get => _playlist;
             set
             {
                 _playlist = value;
+                LoadTracks();
                 OnPropertyChanged(nameof(Playlist));
             }
         }
@@ -43,6 +66,37 @@ namespace MultiSpotify.ViewModel
             {
                 Playlist.owner.display_name = value;
                 OnPropertyChanged(nameof(PlaylistOwner));
+            }
+        }
+
+        public int SongsCount => Playlist.tracks.total;
+
+        private async void LoadTracks()
+        {
+            TracksDuration = "";
+            Tracks = new List<SpotifyApiInteraction.PlaylistTrackInfo>(await SpotifyApiInteraction.LoadTracks(Playlist.tracks.href));
+
+            int generalDuration = Tracks.Select(x => x.track.duration_ms).Sum();
+            int hours = generalDuration / 3600000;
+            int minutes = (generalDuration / 60000);
+            minutes -= hours * 60;
+            int seconds = generalDuration / 1000;
+            seconds -= hours * 3600;
+            seconds -= minutes * 60;
+
+            if (hours > 0)
+            {
+                TracksDuration += hours + " hr ";
+            }
+
+            if (minutes > 0)
+            {
+                TracksDuration += minutes + " min ";
+            }
+
+            if (hours == 0)
+            {
+                TracksDuration += seconds + " sec";
             }
         }
 

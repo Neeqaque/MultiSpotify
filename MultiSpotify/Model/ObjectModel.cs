@@ -19,6 +19,15 @@ namespace MultiSpotify
 {
     public static partial class SpotifyApiInteraction
     {
+        public abstract class PagingObject
+        {
+            public string href;
+            public int limit;
+            public string next;
+            public int offset;
+            public string previous;
+            public int total;
+        }
         public class UserInfo
         {
             public string country { get; set; }
@@ -35,104 +44,59 @@ namespace MultiSpotify
             public List<ImageInfo> images { get; set; }
         }
 
-        public class TracksInfo
+        public class TracksInfoPaging : PagingObject
+        {
+            public PlaylistTrackInfo[] items;
+        }
+
+        public class LinkingInfo
+        {
+            public ExternalUrlsInfo external_urls { get; set; }
+            public string href { get; set; }
+            public string id { get; set; }
+            public string type { get; set; }
+            public string uri { get; set; }
+        }
+
+        public class PlaylistTrackInfo
+        {
+            public DateTime added_at { get; set; }
+            public UserInfo added_by { get; set; }
+            public bool is_local { get; set; }
+            public TrackInfo track { get; set; }
+        }
+
+        public class TrackInfo
+        {
+            public SimplifiedAlbumInfo album { get; set; }
+            public  SimplifiedArtistInfo artist { get; set; }
+            public string[] avaliable_markets { get; set; }
+            public int disc_number { get; set; }
+            public int duration_ms { get; set; }
+            public bool @explicit { get; set; }
+            public ExternalUrlsInfo external_urls { get; set; }
+            public string href { get; set; }
+            public string id { get; set; }
+            public bool is_playable { get; set; }
+            public LinkingInfo linked_from { get; set; }
+            public string name { get; set; }
+            public int popularity { get; set; }
+            public string preview_url { get; set; }
+            public int track_number { get; set; }
+            public string type { get; set; }
+            public string uri { get; set; }
+        }
+
+        public class PlaylistTracksInfo
         {
             public string href { get; set; }
             public int total { get; set; }
         }
 
-        public class PlaylistsInfo:INotifyPropertyChanged
+        public class PlaylistInfoPaging : PagingObject
         {
-            private string _href;
-            private int _limit;
-            private string _next;
-            private int _offset;
-            private string _previous;
-            private int _total;
-            private ObservableCollection<PlaylistInfo> _items;
-            public string href
-            {
-                get => _href;
-                set
-                {
-                    _href = value;
-                    OnPropertyChanged(nameof(href));
-                }
-            }
-            public int limit
-            {
-                get => _limit;
-                set
-                {
-                    _limit = value;
-                    OnPropertyChanged(nameof(limit));
-                }
-            }
-            public string next
-            {
-                get => _next;
-                set
-                {
-                    _next = value;
-                    OnPropertyChanged(nameof(next));
-                }
-            }
-            public int offset
-            {
-                get => _offset;
-                set
-                {
-                    _offset = value;
-                    OnPropertyChanged(nameof(offset));
-                }
-            }
-            public string previous
-            {
-                get => _previous;
-                set
-                {
-                    _previous = value;
-                    OnPropertyChanged(nameof(previous));
-                }
-            }
-            public int total
-            {
-                get => _total;
-                set
-                {
-                    _total = value;
-                    OnPropertyChanged(nameof(total));
-                }
-            }
-            public ObservableCollection<PlaylistInfo> items
-            {
-                get
-                {
-                    if (_items == null)
-                    {
-                        _items = new ObservableCollection<PlaylistInfo>();
-                    }
-                    return _items;
-                }
-                set
-                {
-                    _items = value;
-                    OnPropertyChanged(nameof(items));
-                }
-            }
-
-
-            #region Interface realization
-
-            public event PropertyChangedEventHandler PropertyChanged;
-
-            [NotifyPropertyChangedInvocator]
-            protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-            {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            }
-
-            #endregion
+            
+            public ObservableCollection<PlaylistInfo> items;
         }
 
         public class PlaylistInfo:INotifyPropertyChanged
@@ -145,7 +109,7 @@ namespace MultiSpotify
             private UserInfo _owner;
             private bool _public;
             private string _snapshot_id;
-            private TracksInfo _tracks;
+            private PlaylistTracksInfo _tracks;
             private string _type;
             private string _uri;
             public bool collaborative
@@ -222,7 +186,7 @@ namespace MultiSpotify
                 }
             }
 
-            public TracksInfo tracks
+            public PlaylistTracksInfo tracks
             {
                 get => _tracks;
                 set
@@ -287,6 +251,33 @@ namespace MultiSpotify
         {
             public bool filter_enabled { get; set; }
             public bool filter_locked { get; set; }
+        }
+
+        public class SimplifiedAlbumInfo
+        {
+            public string album_group { get; set; }
+            public string album_type { get; set; }
+            public SimplifiedArtistInfo[] artists { get; set; }
+            public string[] avaliable_markets { get; set; }
+            public ExternalUrlsInfo external_urls { get; set; }
+            public string href { get; set; }
+            public string id { get; set; }
+            public ImageInfo[] images { get; set; }
+            public string name { get; set; }
+            public string release_date { get; set; }
+            public string release_date_precision { get; set; }
+            public string type { get; set; }
+            public string uri { get; set; }
+        }
+
+        public class SimplifiedArtistInfo
+        {
+            public ExternalUrlsInfo external_urls { get; set; }
+            public string href { get; set; }
+            public string id { get; set; }
+            public string name { get; set; }
+            public string type { get; set; }
+            public string uri { get; set; }
         }
 
         [Serializable]

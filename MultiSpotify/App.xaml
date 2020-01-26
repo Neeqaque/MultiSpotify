@@ -10,7 +10,6 @@
                 <ResourceDictionary Source="ResourceDictionaries/Templates.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:MultiSpotify.ViewModel" />
-            <source:SharedData x:Key="Shared" />
-    </ResourceDictionary>
+        </ResourceDictionary>
   </Application.Resources>
 </Application>

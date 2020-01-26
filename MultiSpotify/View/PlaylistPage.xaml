@@ -35,7 +35,13 @@
                            Foreground="{DynamicResource MenuItemIdleForeground}"/>
                     <Label Content="{Binding PlaylistOwner}"
                            FontWeight="Bold"/>
-                    <Label Content=" • 76 songs, 2 hr 50 min"
+                    <Label Content=" • "
+                           Foreground="{DynamicResource MenuItemIdleForeground}"/>
+                    <Label Content="{Binding SongsCount}"
+                           Foreground="{DynamicResource MenuItemIdleForeground}"/>
+                    <Label Content=" songs, "
+                           Foreground="{DynamicResource MenuItemIdleForeground}"/>
+                    <Label Content="{Binding TracksDuration}"
                            Foreground="{DynamicResource MenuItemIdleForeground}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"

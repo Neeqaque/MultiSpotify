@@ -19,6 +19,7 @@
                NavigationUIVisibility="Hidden" />
         <DockPanel  Height="30"
                     x:Name="Header_Panel"
+                    Background="Transparent"
                     MouseUp="Header_Panel_OnMouseUp"
                     LastChildFill="False"
                     MouseDown="Header_Panel_OnMouseDown"
