@@ -16,9 +16,11 @@
                 <ColumnDefinition Width="95*"/>
             </Grid.ColumnDefinitions>
             <Image Width="200"
-                   ToolTip="Edit image"
+                   Source="{Binding Playlist.images[0].Image}"
                    SnapsToDevicePixels="True"
                    Height="200"/>
+
+            <Button Style="{DynamicResource EditImageButton}" />
 
             <StackPanel Grid.Column="1"
                         Height="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=Height}">

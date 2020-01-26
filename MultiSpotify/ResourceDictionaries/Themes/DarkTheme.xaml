@@ -21,6 +21,7 @@
     <SolidColorBrush x:Key="TooltipForeground">#ADADAD</SolidColorBrush>
     <SolidColorBrush x:Key="DefaultLabelForeground">#FFFFFF</SolidColorBrush>
     <SolidColorBrush x:Key="DisabledLabelForeground">#767676</SolidColorBrush>
+    <SolidColorBrush x:Key="EditImageBackground">#CC333333</SolidColorBrush>
 
     <SolidColorBrush x:Key="PrimaryBrush">#1ED760</SolidColorBrush>
     <SolidColorBrush x:Key="DarkerPrimaryBrush">#1DB954</SolidColorBrush>

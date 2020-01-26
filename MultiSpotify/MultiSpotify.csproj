@@ -108,6 +108,9 @@
     <Compile Include="Source\Converters\CentralTooltipConverter.cs" />
     <Compile Include="Model\ObjectModel.cs" />
     <Compile Include="Source\WindowSizing.cs" />
+    <Compile Include="UserControls\LeftMenuControl.xaml.cs">
+      <DependentUpon>LeftMenuControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\PlaylistPage_ViewModel.cs" />
@@ -145,6 +148,10 @@
     <Page Include="ResourceDictionaries\Themes\LightTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\LeftMenuControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\BrowsePage.xaml">
       <SubType>Designer</SubType>

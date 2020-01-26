@@ -42,6 +42,9 @@
                                            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListBoxItem}}, Path=Content}"
                                            />
                 </i:EventTrigger>
+                <i:EventTrigger EventName="MouseWheel" SourceObject="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ScrollBar}}">
+                    <i:InvokeCommandAction Command="ScrollBar.LineDownCommand"/>
+                </i:EventTrigger>
             </i:Interaction.Triggers>
             <StackPanel Orientation="Horizontal">
                 <Label Margin="6 0 0 0"

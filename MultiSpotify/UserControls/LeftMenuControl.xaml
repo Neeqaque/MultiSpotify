@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="MultiSpotify.UserControls.LeftMenuControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MultiSpotify.UserControls"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="{DynamicResource MenuBackground}"
+          DataContext="{Binding MenuVM}">
+        <ListBox Margin="0 30 0 0"
+                 SelectedIndex="{Binding SelectedIndex_Home}"
+                 Style="{DynamicResource MainMenuListBox}">
+
+            <ListBoxItem Content="Home"
+                         Tag="{DynamicResource HomeIcon}"
+                         Height="38">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseUp">
+                        <i:InvokeCommandAction Command="{Binding OpenHomeCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListBoxItem>
+
+            <ListBoxItem Content="Browse"
+                             Tag="{DynamicResource BrowseIcon}"
+                             Height="38">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseUp">
+                        <i:InvokeCommandAction Command="{Binding OpenBrowseCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListBoxItem>
+
+            <ListBoxItem Content="Radio"
+                             Tag="{DynamicResource RadioIcon}"
+                             Height="38">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseUp">
+                        <i:InvokeCommandAction Command="{Binding OpenRadioCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ListBoxItem>
+            <ListBox.Resources>
+                <Style TargetType="ListBoxItem" 
+                           BasedOn="{StaticResource MainMenuItem}" />
+            </ListBox.Resources>
+        </ListBox>
+
+        <ScrollViewer Margin="0 160 0 0"
+                      VerticalScrollBarVisibility="Auto"
+                      Background="Transparent"
+                      x:Name="MenuScrollViewer"
+                      HorizontalScrollBarVisibility="Auto">
+            <StackPanel>
+                <Label Style="{DynamicResource MainMenuLabel}"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Content="YOUR LIBRARY"
+                       Margin="16 0 0 0"/>
+
+                <ListBox Style="{DynamicResource MainMenuListBox}"
+                         x:Name="LibraryListBox"
+                         
+                         SelectedIndex="{Binding SelectedIndex_Library}">
+                    <ListBoxItem Content="Made for You"
+                                 Margin="0"/>
+                    <ListBoxItem Content="Recently Played"/>
+                    <ListBoxItem Content="Liked Songs"/>
+                    <ListBoxItem Content="Albums"/>
+                    <ListBoxItem Content="Artists"/>
+                    <ListBoxItem Content="Podcasts"/>
+                    <ListBox.Resources>
+                        <Style TargetType="ListBoxItem"
+                               BasedOn="{StaticResource MainMenuItem}">
+                            <Setter Property="FontSize" Value="15" />
+                            <EventSetter Event="MouseWheel" Handler="Item_MouseWheel" />
+                        </Style>
+                    </ListBox.Resources>
+                </ListBox>
+                <Label Style="{DynamicResource MainMenuLabel}"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Content="PLAYLISTS"
+                       Margin="16 20 0 0"/>
+                <ListBox Style="{DynamicResource MainMenuListBox}"
+                         x:Name="PlaylistListBox"
+                         ItemsSource="{Binding Playlists}"
+                         DisplayMemberPath="name"
+                         SelectedIndex="{Binding SelectedIndex_Playlists}">
+                    <ListBox.Resources>
+                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource MainMenuItem}">
+                            <EventSetter Event="MouseWheel" Handler="Item_MouseWheel" />
+                            <Setter Property="FontSize" Value="15" />
+                            <Setter Property="Template" Value="{DynamicResource PlaylistMenuItemTemplate}" />
+                        </Style>
+                    </ListBox.Resources>
+                </ListBox>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

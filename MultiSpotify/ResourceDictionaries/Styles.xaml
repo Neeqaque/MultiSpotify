@@ -123,6 +123,28 @@
         </Style.Triggers>
     </Style>
 
+    <Style TargetType="Button" x:Key="EditImageButton">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Background" Value="{DynamicResource EditImageBackground}" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="70" />
+        <Setter Property="Opacity" Value="0" />
+        <Setter Property="ToolTip" Value="Edit image" />
+        <Setter Property="Width" Value="200" />
+        <Setter Property="Height" Value="200" />
+        <Setter Property="Foreground" Value="{DynamicResource DefaultLabelForeground}" />
+        <Setter Property="FontFamily" Value="{DynamicResource SegoeIconFont}" />
+        <Setter Property="Content" Value="{DynamicResource EditIcon}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Template" Value="{DynamicResource DefaultButtonTemplate}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value="1" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <Style TargetType="ToolTip">
         <Setter Property="Foreground" Value="{DynamicResource TooltipForeground}" />
         <Setter Property="Background" Value="{DynamicResource PlayBackground}" />
