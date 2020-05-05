@@ -66,10 +66,42 @@ namespace MultiSpotify
             public TrackInfo track { get; set; }
         }
 
+        public class DisplayedTrack
+        {
+            public bool is_liked { get; set; } = false;
+            public string name { get; set; }
+            public string[] artist_names { get; set; }
+            public string[] artist_uris { get; set; }
+            public string album_name { get; set; }
+            public string album_uri { get; set; }
+            public string duration { get; set; }
+            public DateTime added_at { get; set; }
+            public bool currently_playing { get; set; } = false;
+            public string track_uri { get; set; }
+
+            public bool @explicit { get; set; }
+
+            public DisplayedTrack(PlaylistTrackInfo track)
+            {
+                name = track.track.name;
+                artist_uris = track.track.artists.Select(x => x.uri).ToArray();
+                artist_names = track.track.artists.Select(x => x.name).ToArray();
+                album_name = track.track.album.name;
+                album_uri = track.track.album.uri;
+                added_at = track.added_at;
+                track_uri = track.track.uri;
+                @explicit = track.track.@explicit;
+
+                int minutes = track.track.duration_ms / 60000;
+                int seconds = track.track.duration_ms / 1000 - minutes * 60;
+                duration = minutes + ":" + seconds.ToString("D2");
+            }
+        }
+
         public class TrackInfo
         {
             public SimplifiedAlbumInfo album { get; set; }
-            public  SimplifiedArtistInfo artist { get; set; }
+            public  SimplifiedArtistInfo[] artists { get; set; }
             public string[] avaliable_markets { get; set; }
             public int disc_number { get; set; }
             public int duration_ms { get; set; }

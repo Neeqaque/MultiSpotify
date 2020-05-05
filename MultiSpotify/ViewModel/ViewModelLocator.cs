@@ -43,8 +43,8 @@ namespace MultiSpotify.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<DefaultPage_ViewModel>();
-            SimpleIoc.Default.Register<PlaylistPage_ViewModel>();
+            SimpleIoc.Default.Register<DefaultPageViewModel>();
+            SimpleIoc.Default.Register<PlaylistPageViewModel>();
         }
 
         public MainViewModel Main
@@ -55,14 +55,14 @@ namespace MultiSpotify.ViewModel
             }
         }
 
-        public DefaultPage_ViewModel DefaultPage
+        public DefaultPageViewModel DefaultPage
         {
-            get => ServiceLocator.Current.GetInstance<DefaultPage_ViewModel>();
+            get => ServiceLocator.Current.GetInstance<DefaultPageViewModel>();
         }
 
-        public PlaylistPage_ViewModel PlaylistPage
+        public PlaylistPageViewModel PlaylistPage
         {
-            get => ServiceLocator.Current.GetInstance<PlaylistPage_ViewModel>();
+            get => ServiceLocator.Current.GetInstance<PlaylistPageViewModel>();
         }
         
         public static void Cleanup()

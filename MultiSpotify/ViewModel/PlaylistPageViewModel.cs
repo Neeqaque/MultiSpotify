@@ -1,23 +1,62 @@
-﻿using System;
+﻿using MultiSpotify.Annotations;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using MultiSpotify.Annotations;
-using MultiSpotify.Properties;
 using MultiSpotify.Source;
 
 namespace MultiSpotify.ViewModel
 {
-    public class PlaylistPage_ViewModel: INotifyPropertyChanged
+    public class PlaylistPageViewModel : INotifyPropertyChanged
     {
         private SpotifyApiInteraction.PlaylistInfo _playlist;
+        ICommand _playSongCommand;
         private List<SpotifyApiInteraction.PlaylistTrackInfo> _tracks;
+        private ObservableCollection<SpotifyApiInteraction.DisplayedTrack> _displayedTracks = new ObservableCollection<SpotifyApiInteraction.DisplayedTrack>();
         private string _tracksDuration;
+        private double _playlistVerticalOffset;
+        private Visibility _upperPanelVisibility = Visibility.Hidden;
+
+        public ICommand PlaySongCommand
+        {
+            get => _playSongCommand;
+            set
+            {
+                _playSongCommand = value;
+                OnPropertyChanged(nameof(PlaySongCommand));
+            }
+        }
+
+        public Visibility UpperPanelVisibility
+        {
+            get => _upperPanelVisibility;
+            set
+            {
+                _upperPanelVisibility = value;
+                OnPropertyChanged(nameof(UpperPanelVisibility));
+            }
+        }
+
+        public double PlaylistVerticalOffset
+        {
+            get => _playlistVerticalOffset;
+            set
+            {
+                _playlistVerticalOffset = value;
+                if (_playlistVerticalOffset > 200)
+                {
+                    UpperPanelVisibility = Visibility.Visible;
+                }
+                else
+                {
+                    UpperPanelVisibility = Visibility.Hidden;
+                }
+                OnPropertyChanged(nameof(PlaylistVerticalOffset));
+            }
+        }
 
         public string TracksDuration
         {
@@ -29,12 +68,28 @@ namespace MultiSpotify.ViewModel
             }
         }
 
+        public ObservableCollection<SpotifyApiInteraction.DisplayedTrack> DisplayedTracks
+        {
+            get => _displayedTracks;
+            set
+            {
+                _displayedTracks = value;
+                OnPropertyChanged(nameof(DisplayedTracks));
+            }
+        }
+
         public List<SpotifyApiInteraction.PlaylistTrackInfo> Tracks
         {
             get => _tracks;
             set
             {
                 _tracks = value;
+                DisplayedTracks.Clear();
+                foreach (SpotifyApiInteraction.PlaylistTrackInfo track in _tracks)
+                {
+                    DisplayedTracks.Add(new SpotifyApiInteraction.DisplayedTrack(track));
+                }
+                OnPropertyChanged(nameof(DisplayedTracks));
                 OnPropertyChanged(nameof(Tracks));
             }
         }
@@ -70,6 +125,16 @@ namespace MultiSpotify.ViewModel
         }
 
         public int SongsCount => Playlist.tracks.total;
+
+        public PlaylistPageViewModel()
+        {
+            PlaySongCommand = new Command(PlaySong);
+        }
+
+        private void PlaySong(object track)
+        {
+
+        }
 
         private async void LoadTracks()
         {

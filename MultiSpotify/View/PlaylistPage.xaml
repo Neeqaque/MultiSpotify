@@ -4,65 +4,204 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MultiSpotify.View"
+      xmlns:source="clr-namespace:MultiSpotify.Source"
+      xmlns:converters="clr-namespace:MultiSpotify.Source.Converters"
+      xmlns:userControls="clr-namespace:MultiSpotify.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="PlaylistPage">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Grid Height="250"
-              DataContext="{Binding PlaylistPage, Source={StaticResource Locator}}"
-              VerticalAlignment="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250"/>
-                <ColumnDefinition Width="95*"/>
-            </Grid.ColumnDefinitions>
-            <Image Width="200"
-                   Source="{Binding Playlist.images[0].Image}"
-                   SnapsToDevicePixels="True"
-                   Height="200">
-                <Image.Effect>
-                    <DropShadowEffect BlurRadius="5" />
-                </Image.Effect>
-            </Image>
+      Title="PlaylistPage"
+      DataContext="{Binding PlaylistPage, Source={StaticResource Locator}}">
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:FlipDoubleConverter x:Key="FlipDoubleConverter" />
+        <converters:StringLengthConverter x:Key="StringLengthConverter" />
+    </Page.Resources>
+    <Grid>
+        <Grid Margin="0 28 16 0"
+              Height="60"
+              VerticalAlignment="Top"
+              Background="{DynamicResource MainBackground}"
+              Visibility="{Binding UpperPanelVisibility}"
+              Grid.ZIndex="1">
+            <StackPanel Orientation="Horizontal">
+                <userControls:EditableImage Source="{Binding Playlist.images[0].Image}"
+                                            Width="50"
+                                            Height="50"
+                                            IsEditEnabled="False"
+                                            Margin="10 0 0 0"/>
 
-            <Button Style="{DynamicResource EditImageButton}" />
-
-            <StackPanel Grid.Column="1"
-                        Height="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=Height}">
-                <Label Content="PLAYLIST"
-                       FontSize="13"
-                       Margin="2 70 0 0"/>
                 <Label Content="{Binding PlaylistName}"
+                       Style="{DynamicResource DefaultLabel}"
+                       VerticalAlignment="Center"
+                       Margin="10 0 0 0"
+                       Width="Auto"
                        FontFamily="{DynamicResource MainFontExtrabold}"
-                       FontSize="50"
-                       ToolTip="Edit title"/>
-                <StackPanel Orientation="Horizontal"
-                            Margin="2 8 0 0">
-                    <Label Content="Created by "
-                           Foreground="{DynamicResource MenuItemIdleForeground}"/>
-                    <Label Content="{Binding PlaylistOwner}"
-                           FontWeight="Bold"/>
-                    <Label Content=" • "
-                           Foreground="{DynamicResource MenuItemIdleForeground}"/>
-                    <Label Content="{Binding SongsCount}"
-                           Foreground="{DynamicResource MenuItemIdleForeground}"/>
-                    <Label Content=" songs, "
-                           Foreground="{DynamicResource MenuItemIdleForeground}"/>
-                    <Label Content="{Binding TracksDuration}"
-                           Foreground="{DynamicResource MenuItemIdleForeground}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                            Margin="2 20 0 0">
-                    <Button Content="PLAY"
-                            Style="{DynamicResource RoundPlayButton}"/>
+                       FontSize="28"/>
+            </StackPanel>
 
-                    <Button Content="{DynamicResource MoreIcon}"
-                            Margin="13 0 0 0"
-                            Style="{DynamicResource RoundMoreButton}"/>
-                </StackPanel>
-                <StackPanel.Resources>
-                    <Style TargetType="Label" BasedOn="{StaticResource DefaultLabel}" />
-                </StackPanel.Resources>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button Style="{DynamicResource RoundPlayButton}"
+                        Content="PLAY"
+                        Margin="0 0 10 0"/>
+                <Button Style="{DynamicResource RoundBorderButton}"
+                        ToolTip="More"
+                        Content="{DynamicResource MoreIcon}"
+                        Margin="0 0 10 0"/>
             </StackPanel>
         </Grid>
-    </ScrollViewer>
+
+        <Grid Background="{DynamicResource PlaylistBackgroundBrush}"
+              Height="280"
+              VerticalAlignment="Top">
+            <Grid.RenderTransform>
+                <TranslateTransform Y="{Binding VerticalOffset, ElementName=MainScrollViewer, Mode=OneWay, Converter={StaticResource FlipDoubleConverter}}" />
+            </Grid.RenderTransform>
+        </Grid>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                      source:ScrollViewerBinding.VerticalOffset="{Binding PlaylistVerticalOffset, Mode=TwoWay}"
+                      x:Name="MainScrollViewer"
+                      Margin="0 30 0 0">
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="280" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                
+                <Grid Height="250"
+                      VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="95*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <userControls:EditableImage Width="200"
+                                                IsEditEnabled="True"
+                                                Height="200"
+                                                Source="{Binding Playlist.images[0].Image}">
+                        <userControls:EditableImage.Effect>
+                            <DropShadowEffect BlurRadius="5" />
+                        </userControls:EditableImage.Effect>
+                    </userControls:EditableImage>
+
+                    <StackPanel Grid.Column="1"
+                                Height="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=Height}">
+                        <Label Content="PLAYLIST"
+                               FontSize="13"
+                               Margin="2 70 0 0"/>
+                        <Label Content="{Binding PlaylistName}"
+                               Width="Auto"
+                               Cursor="Hand"
+                               HorizontalAlignment="Left"
+                               FontFamily="{DynamicResource MainFontExtrabold}"
+                               FontSize="50"
+                               ToolTip="Edit title"/>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="2 8 0 0">
+                            <Label Content="Created by "/>
+                            <TextBlock Text="{Binding PlaylistOwner}"
+                                       FontFamily="{DynamicResource MainFontBold}"
+                                       Cursor="Hand">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock" BasedOn="{StaticResource DefaultTextBlock}">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="TextDecorations" Value="Underline" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <Label Content=" • "/>
+                            <Label Content="{Binding SongsCount}"/>
+                            <Label Content=" songs, "/>
+                            <Label Content="{Binding TracksDuration}"/>
+                            <StackPanel.Resources>
+                                <Style TargetType="Label" BasedOn="{StaticResource DefaultLabel}">
+                                    <Setter Property="Foreground" Value="{DynamicResource MenuItemIdleForeground}" />
+                                </Style>
+                            </StackPanel.Resources>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                Margin="2 20 0 0">
+                            <Button Content="PLAY"
+                                Style="{DynamicResource RoundPlayButton}"/>
+
+                            <Button Content="{DynamicResource MoreIcon}"
+                                Margin="13 0 0 0"
+                                Style="{DynamicResource RoundBorderButton}"/>
+                        </StackPanel>
+                        <StackPanel.Resources>
+                            <Style TargetType="Label" BasedOn="{StaticResource DefaultLabel}" />
+                        </StackPanel.Resources>
+                    </StackPanel>
+                </Grid>
+                <DataGrid Grid.Row="1"
+                          ItemsSource="{Binding DisplayedTracks}"
+                          Style="{DynamicResource PlaylistDataGrid}">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Width="35" 
+                                                CellStyle="{DynamicResource PlaylistDataGridIconCell}">
+                            <DataGridTemplateColumn.CellTemplate >
+                                <DataTemplate>
+                                    <Button Style="{DynamicResource RoundBorderButton}"
+                                            FontSize="10"
+                                            Width="24"
+                                            Command="{Binding DataContext.PlaySongCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Page}}"
+                                            CommandParameter="{Binding}"
+                                            Visibility="{Binding IsMouseOver, 
+                                                            RelativeSource={RelativeSource AncestorType=DataGridRow}, 
+                                                            Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Foreground="{DynamicResource DefaultLabelForeground}"
+                                            Content="{DynamicResource PlaySolidIcon}"
+                                            Height="24"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="35"
+                                                CellStyle="{DynamicResource PlaylistDataGridIconCell}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ToggleButton Style="{DynamicResource LikeButton}"
+                                                  ToolTip="Save to your Liked Songs"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Binding="{Binding name}" 
+                                            Width="4*"
+                                            Header="TITLE"/>
+                        <DataGridTemplateColumn Width="60"
+                                                CellStyle="{DynamicResource PlaylistDataGridIconCell}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Label Style="{DynamicResource ExplicitLabel}"
+                                           Visibility="{Binding explicit, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Binding="{Binding artist_names[0]}" 
+                                            CellStyle="{DynamicResource PlaylistDataGridTooltippedTextCell}"
+                                            Width="4*"
+                                            Header="ARTIST"/>
+                        <DataGridTextColumn Binding="{Binding album_name, Converter={StaticResource StringLengthConverter}}"
+                                            Width="4*"
+                                            CellStyle="{DynamicResource PlaylistDataGridTooltippedTextCell}"
+                                            Header="ALBUM"/>
+                        <DataGridTextColumn Binding="{Binding added_at, StringFormat='d'}" 
+                                            Width="2.3*"
+                                            HeaderStyle="{DynamicResource PlaylistIconDataGridHeader}"
+                                            Header="{DynamicResource CalendarIcon}"/>
+                        <DataGridTextColumn Width="45" />
+                        <DataGridTextColumn Binding="{Binding duration}"
+                                            Width="*"
+                                            HeaderStyle="{DynamicResource PlaylistIconDataGridHeader}"
+                                            Header="{DynamicResource ClockIcon}"/>
+                        <DataGridTextColumn Width="1"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
 </Page>

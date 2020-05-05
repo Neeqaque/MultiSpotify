@@ -3,6 +3,7 @@
                     xmlns:local="clr-namespace:MultiSpotify"
                     xmlns:converters="clr-namespace:MultiSpotify.Source.Converters">
     <converters:CentralTooltipConverter x:Key="CentralTooltipConverter" />
+    <converters:RoundBorderConverter x:Key="RoundBorderConverter" />
 
     <Style TargetType="ListBox" x:Key="MainMenuListBox">
         <Setter Property="Background" Value="Transparent" />
@@ -47,12 +48,20 @@
         <Setter Property="Padding" Value="0" />
     </Style>
 
+    <Style TargetType="TextBlock" x:Key="DefaultTextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource DefaultLabelForeground}" />
+        <Setter Property="FontFamily" Value="{DynamicResource MainFont}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Padding" Value="0" />
+    </Style>
+
     <Style TargetType="Button" x:Key="NavigationButtonStyle">
         <Setter Property="FontFamily" Value="{DynamicResource SegoeIconFont}" />
         <Setter Property="Foreground" Value="{DynamicResource NavButtonActiveForeground}" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Template" Value="{DynamicResource DefaultButtonTemplate}"/>
         <Style.Triggers>
@@ -81,6 +90,76 @@
         <Style.Triggers>
             <Trigger Property="NavigationUIVisibility" Value="Visible">
                 <Setter Property="Template" Value="{DynamicResource FrameNavChromeTemplateKey}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="DataGrid" x:Key="PlaylistDataGrid">
+        <Setter Property="AutoGenerateColumns" Value="False" />
+        <Setter Property="CanUserAddRows" Value="False" />
+        <Setter Property="CanUserReorderColumns" Value="False" />
+        <Setter Property="CanUserDeleteRows" Value="False" />
+        <Setter Property="CanUserResizeColumns" Value="False" />
+        <Setter Property="SelectionUnit" Value="FullRow" />
+        <Setter Property="GridLinesVisibility" Value="None" />
+        <Setter Property="CanUserResizeRows" Value="False" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="IsReadOnly" Value="True" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="RowHeaderWidth" Value="0" />
+        <Setter Property="Background" Value="{DynamicResource MainBackground}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="RowStyle" Value="{DynamicResource PlaylistDataGridRow}" />
+        <Setter Property="ColumnHeaderStyle" Value="{DynamicResource PlaylistTextDataGridHeader}" />
+        <Setter Property="FontFamily" Value="{DynamicResource MainFont}" />
+        <Setter Property="Foreground" Value="{DynamicResource DefaultLabelForeground}" />
+        <Setter Property="CellStyle" Value="{DynamicResource PlaylistDataGridTextCell}" />
+        <Setter Property="Margin" Value="24 0" />
+    </Style>
+
+    <Style TargetType="DataGridColumnHeader" x:Key="PlaylistTextDataGridHeader">
+        <Setter Property="Background" Value="{DynamicResource MainBackground}" />
+        <Setter Property="Foreground" Value="{DynamicResource DisabledLabelForeground}" />
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontFamily" Value="{DynamicResource MainFont}" />
+    </Style>
+
+    <Style TargetType="DataGridCell" x:Key="PlaylistDataGridTextCell">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="{DynamicResource DefaultLabelForeground}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontFamily" Value="{DynamicResource MainFont}" />
+        <Setter Property="Height" Value="35" />
+        <Setter Property="Template" Value="{DynamicResource PlaylistDataGridCellTemplate}" />
+        <Setter Property="Padding" Value="-1 0 0 0" />
+    </Style>
+
+    <Style TargetType="DataGridCell" x:Key="PlaylistDataGridTooltippedTextCell" BasedOn="{StaticResource PlaylistDataGridTextCell}">
+        <Setter Property="Template" Value="{DynamicResource PlaylistDataGridTooltippedCellTemplate}" />
+    </Style>
+
+    <Style TargetType="DataGridCell" x:Key="PlaylistDataGridIconCell" BasedOn="{StaticResource PlaylistDataGridTextCell}">
+        <Setter Property="HorizontalContentAlignment" Value="Center" /> 
+        <Setter Property="FontFamily" Value="{DynamicResource SegoeIconFont}" />
+    </Style>
+
+    <Style TargetType="DataGridColumnHeader" x:Key="PlaylistIconDataGridHeader">
+        <Setter Property="Background" Value="{DynamicResource MainBackground}" />
+        <Setter Property="FontFamily" Value="{DynamicResource SegoeIconFont}" />
+        <Setter Property="Foreground" Value="{DynamicResource DisabledLabelForeground}" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <Style TargetType="DataGridRow" x:Key="PlaylistDataGridRow">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0 1 0 0" />
+        <Setter Property="BorderBrush" Value="{DynamicResource PlaylistBorderBrush}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource PlayBackground}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -128,11 +207,11 @@
         <Setter Property="Background" Value="{DynamicResource EditImageBackground}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Width" Value="200" />
+        <Setter Property="Height" Value="200" />
         <Setter Property="FontSize" Value="70" />
         <Setter Property="Opacity" Value="0" />
         <Setter Property="ToolTip" Value="Edit image" />
-        <Setter Property="Width" Value="200" />
-        <Setter Property="Height" Value="200" />
         <Setter Property="Foreground" Value="{DynamicResource DefaultLabelForeground}" />
         <Setter Property="FontFamily" Value="{DynamicResource SegoeIconFont}" />
         <Setter Property="Content" Value="{DynamicResource EditIcon}" />
@@ -143,6 +222,18 @@
                 <Setter Property="Opacity" Value="1" />
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Label" x:Key="ImagePlaceholderLabel">
+        <Setter Property="Width" Value="200" />
+        <Setter Property="Height" Value="200" />
+        <Setter Property="Background" Value="{DynamicResource PlayBackground}" />
+        <Setter Property="Foreground" Value="{DynamicResource DisabledLabelForeground}" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="70" />
+        <Setter Property="FontFamily" Value="{DynamicResource SegoeIconFont}" />
+        <Setter Property="Content" Value="{DynamicResource MusicNoteIcon}" />
     </Style>
 
     <Style TargetType="ToolTip">
@@ -201,7 +292,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="Button" x:Key="RoundMoreButton">
+    <Style TargetType="Button" x:Key="RoundBorderButton">
         <Setter Property="FontFamily" Value="{DynamicResource SegoeIconFont}" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="{DynamicResource MenuItemIdleForeground}" />
@@ -209,21 +300,21 @@
         <Setter Property="Height" Value="32" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="False" />
         <Setter Property="RenderTransform">
             <Setter.Value>
                 <ScaleTransform />
             </Setter.Value>
         </Setter>
-        <Setter Property="Template" Value="{DynamicResource RoundMoreButtonTemplate}" />
+        <Setter Property="Template" Value="{DynamicResource RoundBorderButtonTemplate}" />
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Foreground" Value="{DynamicResource MenuItemActiveForeground}" />
                 <Setter Property="RenderTransform">
                     <Setter.Value>
-                        <ScaleTransform CenterX="16"
-                                        CenterY="16"
+                        <ScaleTransform CenterX="{Binding Width, RelativeSource={RelativeSource AncestorType=Button}, Converter={StaticResource RoundBorderConverter}}"
+                                        CenterY="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}, Converter={StaticResource RoundBorderConverter}}"
                                         ScaleY="1.05"
                                         ScaleX="1.05" />
                     </Setter.Value>
@@ -310,6 +401,32 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style TargetType="ToggleButton" x:Key="LikeButton">
+        <Setter Property="Foreground" Value="{DynamicResource DefaultLabelForeground}" />
+        <Setter Property="FontFamily" Value="{DynamicResource SegoeIconFont}" />
+        <Setter Property="Content" Value="{DynamicResource HeartIcon}" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Template" Value="{DynamicResource DefaultToggleButtonTemplate}" />
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Content" Value="{DynamicResource HeartFilledIcon}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Label" x:Key="ExplicitLabel">
+        <Setter Property="FontFamily" Value="{DynamicResource MainFont}" />
+        <Setter Property="Foreground" Value="{DynamicResource DisabledLabelForeground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource DisabledLabelForeground}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Content" Value="EXPLICIT" />
+        <Setter Property="FontSize" Value="9" />
+        <Setter Property="Padding" Value="1" />
     </Style>
 
 </ResourceDictionary>

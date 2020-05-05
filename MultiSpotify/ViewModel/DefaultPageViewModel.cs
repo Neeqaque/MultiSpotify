@@ -19,7 +19,7 @@ using MultiSpotify.View;
 
 namespace MultiSpotify.ViewModel
 {
-    public class DefaultPage_ViewModel:INotifyPropertyChanged
+    public class DefaultPageViewModel:INotifyPropertyChanged
     {
         private SpotifyApiInteraction.UserInfo _userInfo = new SpotifyApiInteraction.UserInfo();
 
@@ -31,7 +31,7 @@ namespace MultiSpotify.ViewModel
         {
             get => _userInfo.display_name;
         }
-        public DefaultPage_ViewModel()
+        public DefaultPageViewModel()
         {
             MenuVM = new MenuViewModel();
             LoadInfo();

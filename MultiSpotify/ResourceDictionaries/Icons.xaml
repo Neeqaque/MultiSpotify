@@ -24,4 +24,8 @@
     <system:String x:Key="MaximizeIcon">&#xE922;</system:String>
     <system:String x:Key="RestoreIcon">&#xE923;</system:String>
     <system:String x:Key="EditIcon">&#xE70F;</system:String>
+    <system:String x:Key="MusicNoteIcon">&#xEC4F;</system:String>
+    <system:String x:Key="CalendarIcon">&#xE787;</system:String>
+    <system:String x:Key="ClockIcon">&#xED5A;</system:String>
+    <system:String x:Key="PlaySolidIcon">&#xF5B0;</system:String>
 </ResourceDictionary>

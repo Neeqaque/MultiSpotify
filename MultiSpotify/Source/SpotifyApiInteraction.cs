@@ -196,7 +196,7 @@ namespace MultiSpotify
                 request.AddHeader("Authorization", accessToken.token_type + " " + accessToken.access_token);
                 IRestResponse resp = await _apiClient.ExecuteGetAsync(request);
                 TracksInfoPaging retData = JsonConvert.DeserializeObject<TracksInfoPaging>(resp.Content);
-
+                
                 retCollection = retCollection.Concat(retData.items);
                 href = retData.next;
             } while (href != null);

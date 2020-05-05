@@ -11,6 +11,7 @@
     <SolidColorBrush x:Key="HeaderButtonActiveBackground">#303030</SolidColorBrush>
     <SolidColorBrush x:Key="CloseButtonHoverBackground">#CD1A2B</SolidColorBrush>
     <SolidColorBrush x:Key="CloseButtonActiveBackground">#941320</SolidColorBrush>
+    <SolidColorBrush x:Key="EditImageBackground">#AA000000</SolidColorBrush>
 
     <SolidColorBrush x:Key="MainForeground">#FFFFFF</SolidColorBrush>
     <SolidColorBrush x:Key="NavButtonActiveForeground">#FFFFFF</SolidColorBrush>
@@ -20,14 +21,19 @@
     <SolidColorBrush x:Key="MenuItemActiveForeground">#FFFFFF</SolidColorBrush>
     <SolidColorBrush x:Key="TooltipForeground">#ADADAD</SolidColorBrush>
     <SolidColorBrush x:Key="DefaultLabelForeground">#FFFFFF</SolidColorBrush>
-    <SolidColorBrush x:Key="DisabledLabelForeground">#767676</SolidColorBrush>
-    <SolidColorBrush x:Key="EditImageBackground">#CC333333</SolidColorBrush>
+    <SolidColorBrush x:Key="DisabledLabelForeground">#868686</SolidColorBrush>
+
+    <SolidColorBrush x:Key="PlaylistBorderBrush">#282828</SolidColorBrush>
 
     <SolidColorBrush x:Key="PrimaryBrush">#1ED760</SolidColorBrush>
     <SolidColorBrush x:Key="DarkerPrimaryBrush">#1DB954</SolidColorBrush>
     <SolidColorBrush x:Key="DisabledPrimaryBrush">#1C5B31</SolidColorBrush>
     <SolidColorBrush x:Key="ScrollbarIdleBrush">#535353</SolidColorBrush>
     <SolidColorBrush x:Key="ScrollbarActiveBrush">#B3B3B3</SolidColorBrush>
+    <LinearGradientBrush x:Key="PlaylistBackgroundBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#444444" Offset="0" />
+        <GradientStop Color="#181818" Offset="0.9" />
+    </LinearGradientBrush>
     <!-- /Brushes -->
     
 </ResourceDictionary>

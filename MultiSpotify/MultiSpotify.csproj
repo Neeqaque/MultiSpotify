@@ -107,13 +107,20 @@
     <Compile Include="Source\Command.cs" />
     <Compile Include="Source\Converters\CentralTooltipConverter.cs" />
     <Compile Include="Model\ObjectModel.cs" />
+    <Compile Include="Source\Converters\FlipDoubleConverter.cs" />
+    <Compile Include="Source\Converters\RoundBorderConverter.cs" />
+    <Compile Include="Source\Converters\StringLengthConverter.cs" />
+    <Compile Include="Source\ScrollViewerBinding.cs" />
     <Compile Include="Source\WindowSizing.cs" />
+    <Compile Include="UserControls\EditableImage.xaml.cs">
+      <DependentUpon>EditableImage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\LeftMenuControl.xaml.cs">
       <DependentUpon>LeftMenuControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
-    <Compile Include="ViewModel\PlaylistPage_ViewModel.cs" />
+    <Compile Include="ViewModel\PlaylistPageViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\PlaylistPage.xaml.cs">
       <DependentUpon>PlaylistPage.xaml</DependentUpon>
@@ -149,6 +156,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UserControls\EditableImage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\LeftMenuControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -180,7 +191,7 @@
     <Compile Include="Source\Icons.cs" />
     <Compile Include="Source\SpotifyApiInteraction.cs" />
     <Compile Include="Source\ThemeManager.cs" />
-    <Compile Include="ViewModel\DefaultPage_ViewModel.cs" />
+    <Compile Include="ViewModel\DefaultPageViewModel.cs" />
     <Compile Include="View\BrowsePage.xaml.cs">
       <DependentUpon>BrowsePage.xaml</DependentUpon>
     </Compile>

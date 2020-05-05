@@ -24,5 +24,6 @@ namespace MultiSpotify.View
         {
             InitializeComponent();
         }
+
     }
 }
